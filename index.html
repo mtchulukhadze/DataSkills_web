@@ -5,7 +5,7 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
     <meta name="description" content="DataSkills — პრაქტიკული კურსები Excel-ში, Power BI-ში, SQL-სა და Python-ში.">
 
@@ -38,6 +38,7 @@
 
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
 
@@ -59,6 +60,15 @@
 
             -webkit-font-smoothing: antialiased;
 
+            overflow-x: hidden;
+
+            width: 100%;
+
+        }
+
+
+        img {
+            max-width: 100%;
         }
 
 
@@ -196,6 +206,8 @@
 
             justify-content: space-between;
 
+            position: relative;
+
         }
 
 
@@ -265,6 +277,8 @@
                 background 0.2s ease,
                 color 0.2s ease;
 
+            white-space: nowrap;
+
         }
 
 
@@ -287,7 +301,13 @@
 
             width: 30px;
 
+            height: 30px;
+
+            padding: 4px;
+
             cursor: pointer;
+
+            flex-shrink: 0;
 
         }
 
@@ -304,6 +324,21 @@
 
             margin: 5px 0;
 
+            transition: transform .25s ease, opacity .25s ease;
+
+        }
+
+
+        .menu-button.active span:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .menu-button.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-button.active span:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
         }
 
 
@@ -393,6 +428,8 @@
             border-bottom:
                 1px solid var(--border);
 
+            overflow: hidden;
+
         }
 
 
@@ -408,6 +445,7 @@
             display: flex;
             justify-content: flex-start;
             width: 100%;
+            min-width: 0;
         }
 
         .course-carousel {
@@ -422,13 +460,13 @@
         .hero h1 {
 
             font-size:
-                clamp(10px, 7vw, 30px);
+                clamp(34px, 6vw, 64px);
 
             line-height:
-                1.05;
+                1.08;
 
             letter-spacing:
-                -3px;
+                -2px;
 
             margin-bottom:
                 35px;
@@ -462,7 +500,9 @@
 
             align-items: center;
 
-            gap: 28px;
+            flex-wrap: wrap;
+
+            gap: 20px 28px;
 
         }
 
@@ -496,7 +536,6 @@
             position: relative;
             width: 100%;
             max-width: 700px;
-            /* increased from 500px */
             min-height: 390px;
         }
 
@@ -574,6 +613,8 @@
             font-size: 13px;
 
             font-weight: 700;
+
+            flex-shrink: 0;
 
         }
 
@@ -707,6 +748,8 @@
             gap: 35px;
 
             margin-top: 25px;
+
+            flex-wrap: wrap;
 
         }
 
@@ -880,6 +923,8 @@
                 1px solid #eeeeee;
 
             border-radius: 7px;
+
+            min-width: 0;
 
         }
 
@@ -1110,6 +1155,10 @@
 
             color: #aaa;
 
+            flex-wrap: wrap;
+
+            gap: 6px;
+
         }
 
 
@@ -1261,6 +1310,10 @@
             margin-bottom:
                 65px;
 
+            gap: 24px;
+
+            flex-wrap: wrap;
+
         }
 
 
@@ -1294,6 +1347,8 @@
 
             display: flex;
 
+            flex-wrap: wrap;
+
             gap: 10px;
 
             margin-bottom: 45px;
@@ -1321,6 +1376,8 @@
             transition:
                 background 0.2s ease,
                 color 0.2s ease;
+
+            white-space: nowrap;
 
         }
 
@@ -1396,6 +1453,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 10px;
         }
 
         .course-index {
@@ -1408,6 +1466,7 @@
             letter-spacing: 1px;
             font-weight: 700;
             color: #111111;
+            text-align: right;
         }
 
 
@@ -1465,6 +1524,7 @@
             gap: 15px;
             color: #888;
             font-size: 9px;
+            flex-wrap: wrap;
         }
 
 
@@ -1695,12 +1755,12 @@
         .cta-section h2 {
 
             font-size:
-                clamp(50px, 7vw, 88px);
+                clamp(40px, 7vw, 88px);
 
             line-height: 1.05;
 
             letter-spacing:
-                -3px;
+                -2px;
 
             margin-bottom:
                 25px;
@@ -1902,728 +1962,1146 @@
 
             font-size: 10px;
 
+            flex-wrap: wrap;
+
+            gap: 8px;
+
         }
+
+/* =====================================================
+   COURSE MODAL — RESPONSIVE
+===================================================== */
+
+.modal {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.55);
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 2000;
+
+    opacity: 0;
+
+    transition: opacity 0.25s ease;
+
+    overflow-y: auto;
+}
+
+.modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+
+/* =====================================================
+   MODAL CONTENT
+===================================================== */
+
+.modal-content {
+    position: relative;
+
+    width: 100%;
+    max-width: 600px;
+
+    max-height: calc(100vh - 40px);
+
+    overflow-y: auto;
+
+    background: #fafafa;
+
+    padding: 32px 36px;
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 25px 80px
+        rgba(0, 0, 0, 0.22);
+
+    transform: translateY(20px);
+
+    transition:
+        transform 0.25s ease;
+
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
+}
+
+.modal.active .modal-content {
+    transform: translateY(0);
+}
+
+
+/* =====================================================
+   MODAL CLOSE
+===================================================== */
+
+.modal-close {
+    position: absolute;
+
+    top: 12px;
+    right: 15px;
+
+    width: 34px;
+    height: 34px;
+
+    border: none;
+
+    background: #f2f2f2;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    color: #666;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.modal-close:hover {
+    background: #111;
+    color: #fff;
+}
+
+
+/* =====================================================
+   MODAL TYPOGRAPHY
+===================================================== */
+
+.modal-content .eyebrow {
+    margin-bottom: 12px;
+}
+
+.modal-content h2 {
+    font-size: clamp(22px, 3.2vw, 30px);
+
+    line-height: 1.05;
+
+    letter-spacing: -1.8px;
+
+    margin-bottom: 10px;
+
+    padding-right: 35px;
+}
+
+.modal-description {
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    margin-bottom: 18px;
+
+    max-width: 500px;
+}
+
+
+/* =====================================================
+   MODAL META
+===================================================== */
+
+.modal-meta {
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 8px 18px;
+
+    font-size: 10px;
+
+    color: #777;
+
+    padding-bottom: 18px;
+
+    border-bottom:
+        1px solid var(--border);
+
+    margin-bottom: 20px;
+}
+
+
+/* =====================================================
+   MODAL HEADINGS
+===================================================== */
+
+.modal-content h3 {
+    font-size: 15px;
+
+    line-height: 1.3;
+
+    letter-spacing: -0.3px;
+
+    margin-bottom: 9px;
+}
+
+
+/* =====================================================
+   LEARNING LIST
+===================================================== */
+
+.modal-content ul {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 6px 20px;
+
+    margin: 0 0 20px;
+
+    padding: 0;
+
+    list-style: none;
+}
+
+.modal-content li {
+    font-size: 11px;
+
+    line-height: 1.5;
+
+    color: #555;
+
+    list-style: none;
+}
+
+.modal-content li::before {
+    content: "— ";
+
+    color: var(--blue);
+
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   MODAL PRICE
+===================================================== */
+
+.modal-price {
+    margin-top: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.modal-price strong {
+    font-size: 26px;
+
+    line-height: 1;
+
+    letter-spacing: -1px;
+
+    white-space: nowrap;
+}
+
+.modal-price .button {
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   REGISTRATION MODAL
+===================================================== */
+
+.registration-modal {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background:
+        rgba(0, 0, 0, 0.55);
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 3000;
+
+    overflow-y: auto;
+}
+
+.registration-modal.active {
+    display: flex;
+}
+
+
+/* =====================================================
+   REGISTRATION BOX
+===================================================== */
+
+.registration-box {
+    position: relative;
+
+    width: 100%;
+
+    max-width: 480px;
+
+    max-height: calc(100vh - 40px);
+
+    overflow-y: auto;
+
+    background: #fafafa;
+
+    padding: 32px 36px;
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 25px 80px
+        rgba(0, 0, 0, 0.22);
+
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
+}
+
+
+/* =====================================================
+   REGISTRATION CLOSE
+===================================================== */
+
+.registration-close {
+    position: absolute;
+
+    top: 12px;
+    right: 15px;
+
+    width: 34px;
+    height: 34px;
+
+    border: none;
+
+    background: #f2f2f2;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+
+    line-height: 1;
+
+    color: #666;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.registration-close:hover {
+    background: #111;
+    color: #fff;
+}
+
+
+/* =====================================================
+   REGISTRATION TYPOGRAPHY
+===================================================== */
+
+.registration-box .eyebrow {
+    margin-bottom: 12px;
+}
+
+.registration-box h2 {
+    font-size: clamp(30px, 5vw, 40px);
+
+    line-height: 1.05;
+
+    letter-spacing: -1.8px;
+
+    margin-bottom: 10px;
+
+    padding-right: 35px;
+}
+
+.registration-description {
+    font-size: 12px;
+
+    line-height: 1.6;
+
+    margin-bottom: 22px;
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    display: block;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    margin-bottom: 6px;
+}
+
+.form-group input {
+    width: 100%;
+
+    min-height: 44px;
+
+    padding: 11px 13px;
+
+    border:
+        1px solid #ddd;
+
+    background: #fff;
+
+    border-radius: 5px;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease;
+}
+
+.form-group input:focus {
+    border-color: #999;
+}
+
+.form-group input[readonly] {
+    background: #f2f2f2;
+    color: #666;
+}
+
+
+/* =====================================================
+   REGISTRATION BUTTON
+===================================================== */
+
+.registration-submit {
+    width: 100%;
+
+    min-height: 46px;
+
+    margin-top: 6px;
+}
+
+.registration-message {
+    text-align: center;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+    margin-top: 12px;
+}
+
+.registration-message.success {
+    color: #16803c;
+}
+
+.registration-message.error {
+    color: #c62828;
+}
 
 
         /* =====================================================
-           MODAL
+           RESPONSIVE — LARGE TABLET / SMALL LAPTOP
         ===================================================== */
 
-        .modal {
+        @media (max-width: 1024px) {
 
-            position: fixed;
+            .section {
+                padding: 100px 0;
+            }
 
-            inset: 0;
-
-            background:
-                rgba(0, 0, 0, 0.55);
-
-            display: none;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            padding: 20px;
-
-            z-index: 2000;
-
-            opacity: 0;
-
-            transition:
-                opacity 0.25s ease;
-
-        }
-
-
-        .modal.active {
-
-            display: flex;
-
-            opacity: 1;
-
-        }
-
-
-        .modal-content {
-            width: 100%;
-            max-width: 560px;
-            max-height: 85vh;
-
-            overflow-y: auto;
-
-            background: #fafafa;
-
-            padding: 30px 35px;
-
-            position: relative;
-
-            transform: translateY(20px);
-
-            transition:
-                transform 0.25s ease;
-        }
-
-
-
-        .modal.active .modal-content {
-
-            transform:
-                translateY(0);
-
-        }
-
-
-        .modal-close {
-
-            position: absolute;
-
-            top: 20px;
-
-            right: 25px;
-
-            width: 35px;
-
-            height: 35px;
-
-            border: none;
-
-            background: none;
-
-            font-size: 25px;
-
-            cursor: pointer;
-
-            color: #777;
-
-        }
-
-
-        .modal-content h2 {
-            font-size: 36px;
-            letter-spacing: -1.5px;
-            margin-bottom: 8px;
-        }
-
-        .modal-description {
-            font-size: 13px;
-            line-height: 1.5;
-            margin-bottom: 18px;
-        }
-
-        .modal-meta {
-            display: flex;
-            gap: 18px;
-
-            font-size: 10px;
-
-            padding-bottom: 18px;
-
-            margin-bottom: 20px;
-        }
-
-        .modal-content h3 {
-            font-size: 15px;
-            letter-spacing: -0.3px;
-            margin-bottom: 10px;
-        }
-
-        .modal-content ul {
-            gap: 6px;
-            margin-bottom: 18px;
-        }
-
-        .modal-content li {
-            font-size: 11px;
-        }
-
-        .curriculum-item {
-            padding: 9px 0;
-            font-size: 11px;
-        }
-
-        .modal-price {
-            margin-top: 18px;
-        }
-
-        .modal-price strong {
-            font-size: 25px;
-        }
-
-
-        /* =====================================================
-           REGISTRATION MODAL
-        ===================================================== */
-
-        .registration-modal {
-
-            position: fixed;
-
-            inset: 0;
-
-            background:
-                rgba(0, 0, 0, 0.55);
-
-            display: none;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            padding: 20px;
-
-            z-index: 3000;
-
-        }
-
-
-        .registration-modal.active {
-
-            display: flex;
-
-        }
-
-
-        .registration-box {
-
-            width: 100%;
-
-            max-width: 520px;
-
-            background:
-                #fafafa;
-
-            padding: 45px;
-
-            position: relative;
-
-            box-shadow:
-                0 25px 80px rgba(0, 0, 0, 0.2);
-
-        }
-
-
-        .registration-close {
-
-            position: absolute;
-
-            top: 18px;
-
-            right: 22px;
-
-            border: none;
-
-            background: none;
-
-            font-size: 28px;
-
-            color: #777;
-
-            cursor: pointer;
-
-        }
-
-
-        .registration-box h2 {
-
-            font-size: 42px;
-
-            line-height: 1.1;
-
-            letter-spacing:
-                -2px;
-
-            margin-bottom: 15px;
-
-        }
-
-
-        .registration-description {
-
-            font-size: 13px;
-
-            margin-bottom: 30px;
-
-        }
-
-
-        .form-group {
-
-            margin-bottom: 18px;
-
-        }
-
-
-        .form-group label {
-
-            display: block;
-
-            font-size: 11px;
-
-            font-weight: 600;
-
-            margin-bottom: 7px;
-
-        }
-
-
-        .form-group input {
-
-            width: 100%;
-
-            padding: 14px;
-
-            border:
-                1px solid #ddd;
-
-            background: white;
-
-            border-radius: 4px;
-
-            font-family: inherit;
-
-            font-size: 13px;
-
-            outline: none;
-
-        }
-
-
-        .form-group input:focus {
-
-            border-color: #999;
-
-        }
-
-
-        .form-group input[readonly] {
-
-            background: #f2f2f2;
-
-            color: #666;
-
-        }
-
-
-        .registration-submit {
-
-            width: 100%;
-
-            margin-top: 10px;
-
-        }
-
-
-        .registration-message {
-
-            text-align: center;
-
-            font-size: 12px;
-
-            margin-top: 18px;
-
-        }
-
-
-        .registration-message.success {
-
-            color: #16803c;
-
-        }
-
-
-        .registration-message.error {
-
-            color: #c62828;
-
-        }
-
-
-        /* =====================================================
-           SCROLL ANIMATION
-        ===================================================== */
-
-        .reveal {
-
-            opacity: 0;
-
-            transform:
-                translateY(25px);
-
-            transition:
-                opacity 0.7s ease,
-                transform 0.7s ease;
-
-        }
-
-
-        .reveal.visible {
-
-            opacity: 1;
-
-            transform:
-                translateY(0);
-
-        }
-
-
-        /* =====================================================
-           RESPONSIVE
-        ===================================================== */
-
-        @media (max-width: 950px) {
-
-            .hero-grid,
             .about-grid,
-            .contact-grid {
-
-                grid-template-columns: 1fr;
-
+            .process-grid {
                 gap: 60px;
-
             }
-
-
-            .hero {
-
-                padding:
-                    100px 0;
-
-            }
-
-
-            .hero-visual {
-
-                justify-content:
-                    flex-start;
-
-            }
-
-
-            .stats-grid {
-
-                grid-template-columns:
-                    repeat(2, 1fr);
-
-            }
-
-
-            .stat:nth-child(2) {
-
-                border-right: none;
-
-            }
-
-
-            .courses-grid {
-
-                grid-template-columns:
-                    1fr;
-
-            }
-
 
             .process-grid {
-
-                grid-template-columns:
-                    repeat(2, 1fr);
-
+                gap: 30px;
             }
-
-
-            .process-item:nth-child(2) {
-
-                border-right: none;
-
-            }
-
-
-            .process-item {
-
-                padding-bottom:
-                    40px;
-
-            }
-
-
-            .footer-main {
-
-                grid-template-columns:
-                    repeat(2, 1fr);
-
-            }
-
         }
 
 
-        @media (max-width: 700px) {
+        /* =====================================================
+           RESPONSIVE — TABLET / MOBILE NAV BREAKPOINT
+        ===================================================== */
 
-            .container {
+        @media (max-width: 900px) {
 
-                width:
-                    calc(100% - 30px);
+            .nav-links {
 
-            }
-
-
-            .nav-links,
-            .nav-button {
-
-                display: none;
-
-            }
-
-
-            .menu-button {
-
-                display: block;
-
-            }
-
-
-            .nav-links.mobile-open {
-
-                display: flex;
-
-                position: absolute;
+                position: fixed;
 
                 top: 76px;
-
                 left: 0;
 
                 width: 100%;
 
-                padding:
-                    25px 20px;
+                flex-direction: column;
 
-                background:
-                    #fafafa;
+                align-items: stretch;
 
-                border-bottom:
-                    1px solid var(--border);
+                gap: 0;
 
-                flex-direction:
-                    column;
+                background: #fafafa;
 
-                align-items:
-                    flex-start;
+                border-bottom: 1px solid var(--border);
 
-                gap: 18px;
+                padding: 8px 20px 20px;
 
+                transform: translateY(-8px);
+
+                opacity: 0;
+
+                visibility: hidden;
+
+                pointer-events: none;
+
+                transition:
+                    opacity .2s ease,
+                    transform .2s ease,
+                    visibility .2s ease;
+
+                max-height: calc(100vh - 76px);
+
+                overflow-y: auto;
             }
 
+            .nav-links.mobile-open {
+
+                opacity: 1;
+
+                visibility: visible;
+
+                transform: translateY(0);
+
+                pointer-events: auto;
+            }
+
+            .nav-links a {
+
+                padding: 14px 0;
+
+                border-bottom: 1px solid var(--border);
+
+                width: 100%;
+            }
+
+            .nav-links .nav-button-mobile {
+
+                display: inline-flex;
+
+                margin-top: 14px;
+
+                width: 100%;
+
+                border: none;
+
+                background: #111;
+
+                color: #fff;
+            }
+
+            .nav-button {
+                display: none;
+            }
+
+            .menu-button {
+                display: block;
+            }
 
             .hero {
-
-                padding:
-                    90px 0;
-
+                padding: 90px 0 70px;
             }
 
-
-            .hero h1 {
-
-                font-size:
-                    48px;
-
-                letter-spacing:
-                    -1.5px;
-
+            .hero-grid {
+                grid-template-columns: 1fr;
+                row-gap: 50px;
             }
 
-
-            .hero-content>p {
-
-                font-size:
-                    16px;
-
+            .course-carousel {
+                max-width: 100%;
+                min-height: 360px;
             }
 
-
-            .hero-actions {
-
-                align-items:
-                    flex-start;
-
-                flex-direction:
-                    column;
-
-                gap: 20px;
-
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 60px;
             }
-
-
-            .section {
-
-                padding:
-                    85px 0;
-
-            }
-
-
-            .section-top {
-
-                flex-direction:
-                    column;
-
-                align-items:
-                    flex-start;
-
-                gap: 25px;
-
-            }
-
-
-            .section-top h2 {
-
-                font-size:
-                    42px;
-
-            }
-
-
-            .stats-grid {
-
-                grid-template-columns:
-                    1fr;
-
-            }
-
-
-            .stat,
-            .stat:first-child {
-
-                padding:
-                    30px 0;
-
-                border-right: none;
-
-                border-bottom:
-                    1px solid var(--border);
-
-            }
-
-
-            .stat:last-child {
-
-                border-bottom:
-                    none;
-
-            }
-
-
-            .course-card {
-
-                min-height:
-                    400px;
-
-            }
-
 
             .process-grid {
-
-                grid-template-columns:
-                    1fr;
-
+                grid-template-columns: repeat(2, 1fr);
+                row-gap: 30px;
             }
 
+            .process-item {
+                border-right: 1px solid var(--border);
+            }
 
-            .process-item,
-            .process-item:first-child {
-
+            .process-item:nth-child(2n) {
                 border-right: none;
-
-                border-bottom:
-                    1px solid var(--border);
-
-                padding:
-                    30px 0;
-
             }
 
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
 
-            .process-item:last-child {
+            .stat {
+                padding: 28px 20px;
+                border-right: 1px solid var(--border);
+                border-bottom: 1px solid var(--border);
+            }
 
+            .stat:nth-child(2n) {
+                border-right: none;
+            }
+
+            .stat:nth-child(3),
+            .stat:nth-child(4) {
                 border-bottom: none;
-
             }
 
+            .stat:first-child {
+                padding-left: 20px;
+            }
+
+            .stat:last-child {
+                border-right: none;
+            }
 
             .footer-main {
-
-                grid-template-columns:
-                    1fr;
-
-                gap: 40px;
-
+                grid-template-columns: 1fr 1fr;
+                gap: 40px 30px;
             }
 
+            .footer-brand {
+                grid-column: 1 / -1;
+            }
+        }
 
-            .footer-bottom {
 
-                flex-direction:
-                    column;
+        /* =====================================================
+           RESPONSIVE — MOBILE
+        ===================================================== */
 
-                gap: 8px;
+        @media (max-width: 700px) {
 
+            .container {
+                width: calc(100% - 32px);
             }
 
+            .section {
+                padding: 70px 0;
+            }
+
+            .section-top {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 18px;
+                margin-bottom: 40px;
+            }
+
+            .section-top>p {
+                max-width: 100%;
+            }
+
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .course-card {
+                height: auto;
+                min-height: 220px;
+            }
+
+            .cta-section {
+                padding: 90px 0;
+            }
+
+            .modal {
+                align-items: flex-start;
+
+                padding:
+                    15px;
+            }
 
             .modal-content {
+                max-width: 100%;
+
+                max-height:
+                    calc(100vh - 30px);
 
                 padding:
-                    35px 25px;
-
+                    28px 24px;
             }
-
 
             .modal-content h2 {
+                font-size: 34px;
 
-                font-size:
-                    38px;
-
+                letter-spacing:
+                    -1.4px;
             }
 
+            .modal-description {
+                font-size: 12px;
+
+                margin-bottom: 16px;
+            }
 
             .modal-meta {
+                gap: 7px 15px;
 
-                flex-wrap:
-                    wrap;
+                margin-bottom: 17px;
 
+                padding-bottom: 15px;
             }
 
+            .modal-content ul {
+                grid-template-columns: 1fr;
+
+                gap: 5px;
+
+                margin-bottom: 17px;
+            }
+
+            .modal-content li {
+                font-size: 11px;
+            }
 
             .modal-price {
+                margin-top: 17px;
+            }
+        }
 
-                align-items:
-                    flex-start;
 
-                flex-direction:
-                    column;
+        /* =====================================================
+           RESPONSIVE — SMALL PHONES
+        ===================================================== */
 
+        @media (max-width: 480px) {
+
+            .navbar {
+                height: 68px;
             }
 
+            .logo {
+                font-size: 17px;
+            }
 
-            .registration-box {
+            .nav-links {
+                top: 68px;
+            }
+
+            .hero {
+                padding: 60px 0 50px;
+            }
+
+            .hero h1 {
+                letter-spacing: -1px;
+            }
+
+            .hero-content>p {
+                font-size: 15px;
+                margin-bottom: 28px;
+            }
+
+            .hero-actions {
+                gap: 14px 22px;
+            }
+
+            .course-carousel {
+                min-height: 330px;
+            }
+
+            .slide-header {
+                padding: 16px;
+            }
+
+            .excel-content,
+            .powerbi-content {
+                padding: 16px;
+            }
+
+            .sql-content,
+            .python-content {
+                padding: 16px;
+                min-height: 280px;
+            }
+
+            .excel-cell {
+                padding: 9px 6px;
+                font-size: 10px;
+            }
+
+            .excel-summary {
+                gap: 22px;
+                margin-top: 18px;
+            }
+
+            .metric-row {
+                gap: 8px;
+            }
+
+            .metric {
+                padding: 10px;
+            }
+
+            .metric strong {
+                font-size: 17px;
+            }
+
+            .chart {
+                height: 105px;
+                gap: 6px;
+                padding: 10px 8px 0;
+            }
+
+            .chart-labels {
+                gap: 6px;
+                padding: 6px 8px 0;
+                font-size: 7px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat {
+                padding: 22px 14px;
+            }
+
+            .stat:first-child {
+                padding-left: 14px;
+            }
+
+            .stat strong {
+                font-size: 24px;
+            }
+
+            .section-top h2,
+            .about-grid h2,
+            .contact-grid h2 {
+                letter-spacing: -1px;
+            }
+
+            .about-lead {
+                font-size: 17px;
+                margin-bottom: 36px;
+            }
+
+            .about-item {
+                grid-template-columns: 32px 1fr;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-item {
+                border-right: none !important;
+                padding: 25px 0 0;
+                border-bottom: 1px solid var(--border);
+                padding-bottom: 25px;
+            }
+
+            .process-item:last-child {
+                border-bottom: none;
+            }
+
+            .cta-section {
+                padding: 70px 0;
+            }
+
+            .cta-section h2 {
+                letter-spacing: -1px;
+            }
+
+            .footer-main {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 55px 0;
+            }
+
+            .footer-brand {
+                grid-column: auto;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+
+            .course-card {
+                padding: 20px;
+            }
+
+            .course-card h3 {
+                font-size: 21px;
+            }
+
+            .modal {
+                padding: 10px;
+            }
+
+            .modal-content {
+                max-height:
+                    calc(100vh - 20px);
 
                 padding:
-                    35px 25px;
+                    26px 20px 22px;
 
+                border-radius: 7px;
             }
 
+            .modal-close {
+                top: 10px;
+                right: 10px;
+
+                width: 32px;
+                height: 32px;
+
+                font-size: 20px;
+            }
+
+            .modal-content .eyebrow {
+                font-size: 10px;
+
+                margin-bottom: 9px;
+            }
+
+            .modal-content h2 {
+                font-size: 30px;
+
+                line-height: 1.05;
+
+                margin-bottom: 8px;
+            }
+
+            .modal-description {
+                font-size: 11px;
+
+                line-height: 1.55;
+
+                margin-bottom: 14px;
+            }
+
+            .modal-meta {
+                display: grid;
+
+                grid-template-columns:
+                    1fr 1fr;
+
+                gap: 7px;
+
+                font-size: 9px;
+
+                padding-bottom: 14px;
+
+                margin-bottom: 16px;
+            }
+
+            .modal-content h3 {
+                font-size: 14px;
+
+                margin-bottom: 8px;
+            }
+
+            .modal-content ul {
+                display: flex;
+
+                flex-direction: column;
+
+                gap: 4px;
+
+                margin-bottom: 16px;
+            }
+
+            .modal-content li {
+                font-size: 10px;
+
+                line-height: 1.45;
+            }
+
+            .modal-price {
+                display: flex;
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+                gap: 12px;
+
+                margin-top: 16px;
+            }
+
+            .modal-price strong {
+                font-size: 24px;
+            }
+
+            .modal-price .button {
+                width: 100%;
+
+                min-height: 44px;
+            }
+
+
+            /* =============================================
+               REGISTRATION MOBILE
+            ============================================= */
+
+            .registration-modal {
+                align-items: flex-start;
+
+                padding: 10px;
+            }
+
+            .registration-box {
+                max-width: 100%;
+
+                max-height:
+                    calc(100vh - 20px);
+
+                padding:
+                    26px 20px 22px;
+
+                border-radius: 7px;
+            }
+
+            .registration-close {
+                top: 10px;
+                right: 10px;
+
+                width: 32px;
+                height: 32px;
+
+                font-size: 20px;
+            }
+
+            .registration-box .eyebrow {
+                font-size: 10px;
+
+                margin-bottom: 9px;
+            }
 
             .registration-box h2 {
+                font-size: 30px;
 
-                font-size:
-                    36px;
+                line-height: 1.05;
 
+                margin-bottom: 8px;
             }
 
+            .registration-description {
+                font-size: 11px;
+
+                line-height: 1.5;
+
+                margin-bottom: 18px;
+            }
+
+            .form-group {
+                margin-bottom: 12px;
+            }
+
+            .form-group label {
+                font-size: 10px;
+
+                margin-bottom: 5px;
+            }
+
+            .form-group input {
+                min-height: 43px;
+
+                padding: 10px 12px;
+
+                font-size: 12px;
+            }
+
+            .registration-submit {
+                min-height: 44px;
+            }
+
+            .registration-message {
+                font-size: 10px;
+            }
         }
+
+
+        /* =====================================================
+           VERY SMALL PHONES
+        ===================================================== */
+
+        @media (max-width: 360px) {
+
+            .modal-content,
+            .registration-box {
+                padding:
+                    22px 16px 18px;
+            }
+
+            .modal-content h2,
+            .registration-box h2 {
+                font-size: 27px;
+            }
+
+            .modal-description,
+            .registration-description {
+                font-size: 10px;
+            }
+
+            .modal-content li {
+                font-size: 9px;
+            }
+
+            .excel-grid {
+                font-size: 9px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
     </style>
 
 </head>
@@ -2662,6 +3140,12 @@
                     კონტაქტი
                 </a>
 
+                <a href="#courses" class="nav-button nav-button-mobile">
+
+                    დაიწყე სწავლა
+
+                </a>
+
             </nav>
 
 
@@ -2672,7 +3156,7 @@
             </a>
 
 
-            <button class="menu-button" id="menuButton" aria-label="მენიუს გახსნა">
+            <button class="menu-button" id="menuButton" aria-label="მენიუს გახსნა" aria-expanded="false">
 
                 <span></span>
                 <span></span>
@@ -3709,17 +4193,6 @@
 
 
         <!-- =================================================
-             ABOUT
-        ================================================== -->
-
-
-        <!-- =================================================
-             PROCESS
-        ================================================== -->
-
-
-
-        <!-- =================================================
              CONTACT
         ================================================== -->
 
@@ -4012,15 +4485,6 @@
             </ul>
 
 
-            <h3>
-                სასწავლო პროგრამა
-            </h3>
-
-
-            <div class="modal-curriculum" id="modalCurriculum">
-            </div>
-
-
             <div class="modal-price">
 
                 <strong id="modalPrice">
@@ -4202,22 +4666,6 @@
 
                     "პროფესიონალური ანგარიშგება"
 
-                ],
-
-                curriculum: [
-
-                    "Excel-ის საფუძვლები",
-
-                    "ფორმულები და ფუნქციები",
-
-                    "მონაცემთა ანალიზი",
-
-                    "PivotTable",
-
-                    "Power Query",
-
-                    "საბოლოო პროექტი"
-
                 ]
 
             },
@@ -4256,22 +4704,6 @@
                     "ინტერაქტიული Dashboard-ები",
 
                     "Power BI Service"
-
-                ],
-
-                curriculum: [
-
-                    "Power BI-ის საფუძვლები",
-
-                    "Power Query",
-
-                    "მონაცემთა მოდელირება",
-
-                    "DAX",
-
-                    "Dashboard-ის დიზაინი",
-
-                    "საბოლოო პროექტი"
 
                 ]
 
@@ -4312,22 +4744,6 @@
 
                     "Query-ის ოპტიმიზაცია"
 
-                ],
-
-                curriculum: [
-
-                    "SQL-ის საფუძვლები",
-
-                    "ფილტრაცია და აგრეგაცია",
-
-                    "JOIN-ები",
-
-                    "Subquery",
-
-                    "CTE და Window Functions",
-
-                    "SQL პროექტი"
-
                 ]
 
             },
@@ -4367,22 +4783,6 @@
 
                     "მონაცემთა ანალიზის პროექტები"
 
-                ],
-
-                curriculum: [
-
-                    "Python-ის საფუძვლები",
-
-                    "ფუნქციები",
-
-                    "NumPy",
-
-                    "Pandas",
-
-                    "მონაცემთა ვიზუალიზაცია",
-
-                    "საბოლოო პროექტი"
-
                 ]
 
             }
@@ -4410,9 +4810,23 @@
             "click",
             () => {
 
-                navLinks.classList.toggle(
-                    "mobile-open"
+                const isOpen =
+                    navLinks.classList.toggle(
+                        "mobile-open"
+                    );
+
+                menuButton.classList.toggle(
+                    "active",
+                    isOpen
                 );
+
+                menuButton.setAttribute(
+                    "aria-expanded",
+                    isOpen ? "true" : "false"
+                );
+
+                document.body.style.overflow =
+                    isOpen ? "hidden" : "";
 
             }
         );
@@ -4432,10 +4846,52 @@
                             "mobile-open"
                         );
 
+                        menuButton.classList.remove(
+                            "active"
+                        );
+
+                        menuButton.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
+
+                        document.body.style.overflow =
+                            "";
+
                     }
                 );
 
             });
+
+
+        window.addEventListener(
+            "resize",
+            () => {
+
+                if (
+                    window.innerWidth > 900
+                ) {
+
+                    navLinks.classList.remove(
+                        "mobile-open"
+                    );
+
+                    menuButton.classList.remove(
+                        "active"
+                    );
+
+                    menuButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                    document.body.style.overflow =
+                        "";
+
+                }
+
+            }
+        );
 
 
         /* =====================================================
@@ -4568,12 +5024,6 @@
             );
 
 
-        const modalCurriculum =
-            document.getElementById(
-                "modalCurriculum"
-            );
-
-
         const courseLinks =
             document.querySelectorAll(
                 ".course-link"
@@ -4657,44 +5107,6 @@
 
                     modalLearning.appendChild(
                         li
-                    );
-
-                }
-            );
-
-
-            modalCurriculum.innerHTML =
-                "";
-
-
-            course.curriculum.forEach(
-                (item, index) => {
-
-                    const div =
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    div.className =
-                        "curriculum-item";
-
-
-                    div.innerHTML = `
-
-                        <span>
-                            ${String(index + 1).padStart(2, "0")}
-                        </span>
-
-                        <strong>
-                            ${item}
-                        </strong>
-
-                    `;
-
-
-                    modalCurriculum.appendChild(
-                        div
                     );
 
                 }
