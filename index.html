@@ -1,0 +1,5509 @@
+<!DOCTYPE html>
+<html lang="ka">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+        content="DataSkills — პრაქტიკული კურსები Excel-ში, Power BI-ში, SQL-სა და Python-ში.">
+
+    <title>DataSkills — მონაცემთა ანალიტიკის სწავლა</title>
+
+
+    <!-- =====================================================
+         GEORGIAN FONT
+    ====================================================== -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            font-family:
+                "Noto Sans Georgian",
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background: #fafafa;
+
+            color: #111;
+
+            line-height: 1.7;
+
+            -webkit-font-smoothing: antialiased;
+
+        }
+
+
+        a {
+            text-decoration: none;
+            color: #2563eb;
+        }
+
+
+        button {
+            font-family: inherit;
+        }
+
+
+        /* =====================================================
+           VARIABLES
+        ===================================================== */
+
+        :root {
+
+            --black: #111111;
+
+            --white: #ffffff;
+
+            --background: #fafafa;
+
+            --gray-100: #f4f4f4;
+
+            --gray-200: #e9e9e9;
+
+            --gray-300: #d5d5d5;
+
+            --gray-500: #777777;
+
+            --gray-600: #5f5f5f;
+
+            --blue: #2563eb;
+
+            --max-width: 1180px;
+
+            --border: #e5e5e5;
+
+        }
+
+
+        /* =====================================================
+           GLOBAL
+        ===================================================== */
+
+        .container {
+
+            width:
+                min(
+                    calc(100% - 40px),
+                    var(--max-width)
+                );
+
+            margin: 0 auto;
+
+        }
+
+
+        .section {
+
+            padding: 130px 0;
+
+        }
+
+
+        .eyebrow {
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.5px;
+
+            color: var(--blue);
+
+            margin-bottom: 22px;
+
+        }
+
+
+        h1,
+        h2,
+        h3,
+        h4 {
+
+            font-weight: 700;
+
+            letter-spacing: -1px;
+
+        }
+
+
+        p {
+
+            color: var(--gray-600);
+
+        }
+
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+
+        .navbar {
+
+            height: 76px;
+
+            border-bottom:
+                1px solid var(--border);
+
+            background:
+                rgba(250, 250, 250, 0.92);
+
+            backdrop-filter:
+                blur(12px);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+
+        }
+
+
+        .nav-container {
+
+            height: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+        }
+
+
+        .logo {
+
+            font-size: 20px;
+
+            font-weight: 800;
+
+            letter-spacing: -0.5px;
+
+        }
+
+
+        .logo span {
+
+            color: var(--blue);
+
+        }
+
+
+        .nav-links {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 35px;
+
+        }
+
+
+        .nav-links a {
+
+            font-size: 13px;
+
+            color: #555;
+
+            transition:
+                color 0.2s ease;
+
+        }
+
+
+        .nav-links a:hover {
+
+            color: #111;
+
+        }
+
+
+        .nav-button {
+
+            padding:
+                10px 18px;
+
+            border:
+                1px solid #111;
+
+            border-radius: 5px;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            transition:
+                background 0.2s ease,
+                color 0.2s ease;
+
+        }
+
+
+        .nav-button:hover {
+
+            background: #111;
+
+            color: white;
+
+        }
+
+
+        .menu-button {
+
+            display: none;
+
+            border: 0;
+
+            background: none;
+
+            width: 30px;
+
+            cursor: pointer;
+
+        }
+
+
+        .menu-button span {
+
+            display: block;
+
+            width: 22px;
+
+            height: 1px;
+
+            background: #111;
+
+            margin: 5px 0;
+
+        }
+
+
+        /* =====================================================
+           BUTTONS
+        ===================================================== */
+
+        .button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 15px;
+
+            padding:
+                14px 21px;
+
+            border-radius: 5px;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            border: none;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease;
+
+        }
+
+
+        .button:hover {
+
+            transform:
+                translateY(-2px);
+
+        }
+
+
+        .button-dark {
+
+            background: #111;
+
+            color: white;
+
+        }
+
+
+        .button-dark:hover {
+
+            background: #292929;
+
+        }
+
+
+        .button-light {
+
+            background: white;
+
+            color: #111;
+
+        }
+
+
+        .button-light:hover {
+
+            background: #eee;
+
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .hero {
+
+            padding:
+                150px 0 130px;
+
+            border-bottom:
+                1px solid var(--border);
+
+        }
+
+
+   .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 60px;
+    row-gap: 30px;
+    align-items: center;
+}
+
+.hero-visual {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.course-carousel {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    min-height: 390px;
+}
+
+
+
+        .hero h1 {
+
+            font-size:
+                clamp(10px, 7vw, 40px);
+
+            line-height:
+                1.05;
+
+            letter-spacing:
+                -3px;
+
+            margin-bottom:
+                35px;
+
+        }
+
+
+        .hero h1 span {
+
+            color: #999;
+
+        }
+
+
+        .hero-content > p {
+
+            max-width: 570px;
+
+            font-size: 18px;
+
+            line-height: 1.8;
+
+            margin-bottom: 38px;
+
+        }
+
+
+        .hero-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 28px;
+
+        }
+
+
+        .text-link {
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+        }
+
+
+        .text-link:hover {
+
+            color: var(--blue);
+
+        }
+
+/* =====================================================
+   COURSE CAROUSEL
+===================================================== */
+
+.hero-visual {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.course-carousel {
+    position: relative;
+    width: 100%;
+    max-width: 700px; /* increased from 500px */
+    min-height: 390px;
+}
+
+.course-slide {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    background: #ffffff;
+
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 25px 60px
+        rgba(0, 0, 0, 0.10);
+
+    opacity: 0;
+
+    transform:
+        translateX(20px)
+        scale(.98);
+
+    transition:
+        opacity .5s ease,
+        transform .5s ease;
+
+    pointer-events: none;
+}
+
+.course-slide.active {
+    opacity: 1;
+
+    transform:
+        translateX(0)
+        scale(1);
+
+    pointer-events: auto;
+}
+        /* =====================================================
+           SLIDE HEADER
+        ===================================================== */
+
+        .slide-header {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            padding:
+                20px 22px;
+
+            border-bottom:
+                1px solid #eeeeee;
+
+        }
+
+
+        .slide-icon {
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 8px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+        }
+
+
+        .slide-title {
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            color: #222;
+
+        }
+
+
+        .slide-subtitle {
+
+            margin-top: 3px;
+
+            font-size: 10px;
+
+            color: #888;
+
+        }
+
+
+        /* =====================================================
+           EXCEL
+        ===================================================== */
+
+
+
+        
+        .excel-header {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #f5faf7,
+                    #ffffff
+                );
+
+        }
+
+
+        .excel-header .slide-icon {
+
+            background: #217346;
+
+            color: white;
+
+        }
+
+
+        .excel-content {
+
+            padding: 25px;
+
+        }
+
+
+        .excel-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1.5fr 1fr 1fr;
+
+            border-top:
+                1px solid #e0e0e0;
+
+            border-left:
+                1px solid #e0e0e0;
+
+        }
+
+
+        .excel-cell {
+
+            padding:
+                12px 10px;
+
+            border-right:
+                1px solid #e0e0e0;
+
+            border-bottom:
+                1px solid #e0e0e0;
+
+            font-size: 11px;
+
+            color: #444;
+
+        }
+
+
+        .excel-cell.header {
+
+            background: #f1f6f3;
+
+            color: #217346;
+
+            font-weight: 700;
+
+        }
+
+
+        .green-value {
+
+            background: #e5f3e9;
+
+            color: #217346;
+
+            font-weight: 600;
+
+        }
+
+
+        .yellow-value {
+
+            background: #fff6d9;
+
+            color: #a87500;
+
+            font-weight: 600;
+
+        }
+
+
+        .excel-summary {
+
+            display: flex;
+
+            gap: 35px;
+
+            margin-top: 25px;
+
+        }
+
+
+        .excel-summary span {
+
+            display: block;
+
+            font-size: 10px;
+
+            color: #999;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .excel-summary strong {
+
+            font-size: 20px;
+
+            color: #217346;
+
+        }
+
+
+        /* =====================================================
+           SQL
+        ===================================================== */
+
+        .sql-header {
+
+            background: #f5f8fb;
+
+        }
+
+
+        .sql-header .slide-icon {
+
+            background: #1976a8;
+
+            color: white;
+
+            font-size: 10px;
+
+        }
+
+
+        .sql-content {
+
+            padding: 25px;
+
+            background: #17212b;
+
+            min-height: 310px;
+
+            font-family:
+                Consolas,
+                monospace;
+
+        }
+
+
+        .sql-line {
+
+            font-size: 12px;
+
+            line-height: 1.9;
+
+            color: #d9e2ea;
+
+        }
+
+
+        .sql-keyword {
+
+            color: #4fc3f7;
+
+        }
+
+
+        .sql-string {
+
+            color: #a5d66a;
+
+        }
+
+
+        .sql-result {
+
+            margin-top: 22px;
+
+            border:
+                1px solid #344552;
+
+        }
+
+
+        .sql-result div {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            padding:
+                7px 10px;
+
+            border-bottom:
+                1px solid #344552;
+
+            color: #cbd5dc;
+
+            font-size: 10px;
+
+        }
+
+
+        .sql-result div:first-child {
+
+            color: #7fc6e8;
+
+            font-weight: 700;
+
+        }
+
+
+        /* =====================================================
+           POWER BI
+        ===================================================== */
+
+        .powerbi-header {
+
+            background: #fffaf0;
+
+        }
+
+
+        .powerbi-header .slide-icon {
+
+            background: #f2c811;
+
+            color: #333;
+
+        }
+
+
+        .powerbi-content {
+    padding: 22px 25px 20px;
+}
+
+
+        .metric-row {
+
+            display: flex;
+
+            gap: 12px;
+
+        }
+
+
+        .metric {
+
+            flex: 1;
+
+            padding: 14px;
+
+            background: #fafafa;
+
+            border:
+                1px solid #eeeeee;
+
+            border-radius: 7px;
+
+        }
+
+
+        .metric span {
+
+            display: block;
+
+            font-size: 9px;
+
+            color: #999;
+
+        }
+
+
+        .metric strong {
+
+            display: block;
+
+            margin-top: 5px;
+
+            font-size: 20px;
+
+            color: #333;
+
+        }
+
+
+        .metric small {
+
+            color: #3c8d40;
+
+            font-size: 9px;
+
+        }
+
+
+        .chart {
+    position: relative;
+
+    height: 135px;
+
+    margin-top: 24px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 12px;
+
+    padding:
+        12px 15px 0;
+
+    border-bottom:
+        1px solid #ddd;
+
+    overflow: hidden;
+
+    background:
+        repeating-linear-gradient(
+            to top,
+            transparent 0,
+            transparent 28px,
+            #eeeeee 29px
+        );
+}
+.bar {
+    position: relative;
+
+    flex: 1;
+
+    max-width: 42px;
+
+    min-height: 20px;
+
+    background:
+        linear-gradient(
+            to top,
+            #e8b900 0%,
+            #f2c811 55%,
+            #ffe36a 100%
+        );
+
+    border-radius:
+        6px 6px 0 0;
+
+    box-shadow:
+        0 4px 10px
+        rgba(242, 200, 17, 0.18);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+    cursor: pointer;
+}
+
+.bar::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 5px;
+    right: 5px;
+
+    height: 3px;
+
+    border-radius: 5px;
+
+    background:
+        rgba(255, 255, 255, 0.65);
+}
+
+.bar:hover {
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 8px 18px
+        rgba(242, 200, 17, 0.30);
+}
+
+.chart-labels {
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    gap: 12px;
+
+    padding:
+        7px 15px 0;
+
+    font-size: 8px;
+
+    color: #999;
+
+    text-align: center;
+}
+
+.chart-labels span {
+    flex: 1;
+}
+
+
+        /* =====================================================
+           PYTHON
+        ===================================================== */
+
+        .python-header {
+
+            background: #f5f8fb;
+
+        }
+
+
+        .python-header .slide-icon {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #3776ab 50%,
+                    #ffd343 50%
+                );
+
+            color: white;
+
+        }
+
+
+        .python-content {
+
+            padding: 25px;
+
+            background: #1e1e1e;
+
+            min-height: 310px;
+
+        }
+
+
+        .python-code {
+
+            font-family:
+                Consolas,
+                monospace;
+
+            font-size: 11px;
+
+            line-height: 1.8;
+
+            color: #d4d4d4;
+
+        }
+
+
+        .py-keyword {
+
+            color: #569cd6;
+
+        }
+
+
+        .py-string {
+
+            color: #ce9178;
+
+        }
+
+
+        .indent {
+
+            padding-left: 20px;
+
+        }
+
+
+        .python-output {
+
+            margin-top: 20px;
+
+            padding: 12px;
+
+            border-radius: 6px;
+
+            background: #252525;
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            font-size: 10px;
+
+            color: #aaa;
+
+        }
+
+
+        .python-output strong {
+
+            color: #6cc644;
+
+        }
+
+
+        /* =====================================================
+           CAROUSEL DOTS
+        ===================================================== */
+
+        .carousel-controls {
+
+            position: absolute;
+
+            bottom: -30px;
+
+            left: 0;
+
+            width: 100%;
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 7px;
+
+        }
+
+
+        .carousel-dot {
+
+            width: 7px;
+
+            height: 7px;
+
+            padding: 0;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: #d5d5d5;
+
+            cursor: pointer;
+
+            transition: .3s;
+
+        }
+
+
+        .carousel-dot.active {
+
+            width: 22px;
+
+            border-radius: 10px;
+
+            background: #222;
+
+        }
+
+
+        /* =====================================================
+           STATS
+        ===================================================== */
+
+        .stats {
+
+            border-bottom:
+                1px solid var(--border);
+
+        }
+
+
+        .stats-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+        }
+
+
+        .stat {
+
+            padding:
+                40px 30px;
+
+            border-right:
+                1px solid var(--border);
+
+        }
+
+
+        .stat:first-child {
+
+            padding-left: 0;
+
+        }
+
+
+        .stat:last-child {
+
+            border-right: none;
+
+        }
+
+
+        .stat strong {
+
+            display: block;
+
+            font-size: 30px;
+
+            letter-spacing: -1px;
+
+            margin-bottom: 4px;
+
+        }
+
+
+        .stat span {
+
+            color: #888;
+
+            font-size: 11px;
+
+        }
+
+
+        /* =====================================================
+           SECTION HEADER
+        ===================================================== */
+
+        .section-top {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                flex-end;
+
+            margin-bottom:
+                65px;
+
+        }
+
+
+        .section-top h2 {
+
+            font-size:
+                clamp(40px, 5vw, 62px);
+
+            line-height: 1.1;
+
+            letter-spacing:
+                -2px;
+
+        }
+
+
+        .section-top > p {
+
+            max-width: 330px;
+
+            font-size: 14px;
+
+        }
+
+
+        /* =====================================================
+           COURSE FILTER
+        ===================================================== */
+
+        .filter-bar {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-bottom: 45px;
+
+        }
+
+
+        .filter {
+
+            border:
+                1px solid var(--border);
+
+            background: transparent;
+
+            padding:
+                9px 17px;
+
+            border-radius:
+                30px;
+
+            font-size: 11px;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                color 0.2s ease;
+
+        }
+
+
+        .filter:hover,
+        .filter.active {
+
+            background: #111;
+
+            color: white;
+
+            border-color: #111;
+
+        }
+
+/* =====================================================
+   COURSE GRID
+===================================================== */
+
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+    background: var(--border);
+    border: 1px solid var(--border);
+}
+
+
+/* =====================================================
+   COURSE CARD
+===================================================== */
+
+.course-card {
+    padding: 16px;
+    min-height: 0;
+    height: 260px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Hover */
+
+.course-card:hover {
+    background: white;
+    transform: translateY(-3px);
+}
+
+
+/* =====================================================
+   TOP
+===================================================== */
+
+.course-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.course-index {
+    color: #aaa;
+    font-size: 10px;
+}
+
+.course-level {
+    font-size: 9px;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: #111111;
+}
+
+
+/* =====================================================
+   ICON
+===================================================== */
+
+.course-icon {
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid var(--border);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 15px;
+    margin-bottom: 10px;
+
+    font-weight: 700;
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   TITLE
+===================================================== */
+
+.course-card h3 {
+    font-size: 24px;
+    letter-spacing: -1px;
+    margin-bottom: 6px;
+}
+
+
+/* =====================================================
+   DESCRIPTION
+===================================================== */
+
+.course-card > p {
+    max-width: 400px;
+    font-size: 12px;
+    line-height: 1.4;
+    margin-bottom: 8px;
+}
+
+
+/* =====================================================
+   META
+===================================================== */
+
+.course-meta {
+    display: flex;
+    gap: 15px;
+    color: #888;
+    font-size: 9px;
+}
+
+
+/* =====================================================
+   LINK
+===================================================== */
+
+.course-link {
+    margin-top: auto;
+    padding-top: 8px;
+
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.course-link:hover {
+    color: var(--blue);
+}
+
+        /* =====================================================
+           ABOUT
+        ===================================================== */
+
+        .about-section {
+
+            border-top:
+                1px solid var(--border);
+
+            border-bottom:
+                1px solid var(--border);
+
+        }
+
+
+        .about-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 100px;
+
+        }
+
+
+        .about-grid h2 {
+
+            font-size:
+                clamp(42px, 5vw, 64px);
+
+            line-height: 1.1;
+
+            letter-spacing:
+                -2px;
+
+        }
+
+
+        .about-lead {
+
+            font-size: 20px;
+
+            line-height: 1.7;
+
+            margin-bottom:
+                55px;
+
+            color: #333;
+
+        }
+
+
+        .about-items {
+
+            display: flex;
+
+            flex-direction:
+                column;
+
+            gap: 32px;
+
+        }
+
+
+        .about-item {
+
+            display: grid;
+
+            grid-template-columns:
+                40px 1fr;
+
+            gap: 15px;
+
+        }
+
+
+        .about-item > span {
+
+            font-size: 10px;
+
+            color: #aaa;
+
+        }
+
+
+        .about-item h4 {
+
+            font-size: 16px;
+
+            letter-spacing:
+                -0.5px;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .about-item p {
+
+            font-size: 12px;
+
+        }
+
+
+        /* =====================================================
+           PROCESS
+        ===================================================== */
+
+        .process-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            border-top:
+                1px solid var(--border);
+
+        }
+
+
+        .process-item {
+
+            padding:
+                35px 25px 0;
+
+            border-right:
+                1px solid var(--border);
+
+        }
+
+
+        .process-item:first-child {
+
+            padding-left: 0;
+
+        }
+
+
+        .process-item:last-child {
+
+            border-right: none;
+
+        }
+
+
+        .process-item > span {
+
+            color: #aaa;
+
+            font-size: 10px;
+
+        }
+
+
+        .process-item h3 {
+
+            font-size: 17px;
+
+            letter-spacing:
+                -0.5px;
+
+            margin:
+                45px 0 10px;
+
+        }
+
+
+        .process-item p {
+
+            font-size: 12px;
+
+        }
+
+
+        /* =====================================================
+           CTA
+        ===================================================== */
+
+        .cta-section {
+
+            padding:
+                140px 0;
+
+            background: #111;
+
+            color: white;
+
+        }
+
+
+        .cta-content {
+
+            max-width: 800px;
+
+        }
+
+
+        .cta-section .eyebrow {
+
+            color: #7da4ff;
+
+        }
+
+
+        .cta-section h2 {
+
+            font-size:
+                clamp(50px, 7vw, 88px);
+
+            line-height: 1.05;
+
+            letter-spacing:
+                -3px;
+
+            margin-bottom:
+                25px;
+
+        }
+
+
+        .cta-section p {
+
+            color: #999;
+
+            margin-bottom:
+                35px;
+
+        }
+
+
+        /* =====================================================
+           CONTACT
+        ===================================================== */
+
+        .contact-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 100px;
+
+        }
+
+
+        .contact-grid h2 {
+
+            font-size:
+                clamp(42px, 5vw, 64px);
+
+            line-height: 1.1;
+
+            letter-spacing:
+                -2px;
+
+        }
+
+
+        .contact-form {
+
+            display: flex;
+
+            flex-direction:
+                column;
+
+            gap: 18px;
+
+        }
+
+
+        .contact-form input,
+        .contact-form textarea {
+
+            width: 100%;
+
+            border:
+                1px solid var(--border);
+
+            background: white;
+
+            padding:
+                14px 15px;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            outline: none;
+
+            border-radius: 4px;
+
+            transition:
+                border-color 0.2s ease;
+
+        }
+
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+
+            border-color:
+                #999;
+
+        }
+
+
+        .contact-form textarea {
+
+            min-height: 140px;
+
+            resize: vertical;
+
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+
+            background:
+                var(--background);
+
+            border-top:
+                1px solid var(--border);
+
+        }
+
+
+        .footer-main {
+
+            padding:
+                75px 0;
+
+            display: grid;
+
+            grid-template-columns:
+                2fr 1fr 1fr 1fr;
+
+            gap: 50px;
+
+        }
+
+
+        .footer-brand p {
+
+            margin-top:
+                12px;
+
+            font-size:
+                12px;
+
+        }
+
+
+        .footer-column {
+
+            display: flex;
+
+            flex-direction:
+                column;
+
+            gap: 9px;
+
+        }
+
+
+        .footer-column h4 {
+
+            font-size: 12px;
+
+            letter-spacing: 0;
+
+            margin-bottom:
+                10px;
+
+        }
+
+
+        .footer-column a {
+
+            font-size: 11px;
+
+            color: #777;
+
+        }
+
+
+        .footer-column a:hover {
+
+            color: #111;
+
+        }
+
+
+        .footer-bottom {
+
+            border-top:
+                1px solid var(--border);
+
+            padding:
+                22px 0;
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            color: #999;
+
+            font-size: 10px;
+
+        }
+
+
+        /* =====================================================
+           MODAL
+        ===================================================== */
+
+        .modal {
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(0, 0, 0, 0.55);
+
+            display: none;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            padding: 20px;
+
+            z-index: 2000;
+
+            opacity: 0;
+
+            transition:
+                opacity 0.25s ease;
+
+        }
+
+
+        .modal.active {
+
+            display: flex;
+
+            opacity: 1;
+
+        }
+
+
+        .modal-content {
+
+            width: 100%;
+
+            max-width: 700px;
+
+            max-height:
+                90vh;
+
+            overflow-y:
+                auto;
+
+            background:
+                #fafafa;
+
+            padding:
+                45px;
+
+            position: relative;
+
+            transform:
+                translateY(20px);
+
+            transition:
+                transform 0.25s ease;
+
+        }
+
+
+        .modal.active .modal-content {
+
+            transform:
+                translateY(0);
+
+        }
+
+
+        .modal-close {
+
+            position: absolute;
+
+            top: 20px;
+
+            right: 25px;
+
+            width: 35px;
+
+            height: 35px;
+
+            border: none;
+
+            background: none;
+
+            font-size: 25px;
+
+            cursor: pointer;
+
+            color: #777;
+
+        }
+
+
+        .modal-content h2 {
+
+            font-size:
+                45px;
+
+            letter-spacing:
+                -2px;
+
+            margin-bottom:
+                15px;
+
+        }
+
+
+        .modal-description {
+
+            font-size:
+                15px;
+
+            margin-bottom:
+                30px;
+
+        }
+
+
+        .modal-meta {
+
+            display: flex;
+
+            gap: 25px;
+
+            font-size: 11px;
+
+            color: #777;
+
+            padding-bottom:
+                30px;
+
+            border-bottom:
+                1px solid var(--border);
+
+            margin-bottom:
+                30px;
+
+        }
+
+
+        .modal-content h3 {
+
+            font-size: 18px;
+
+            letter-spacing:
+                -0.5px;
+
+            margin-bottom:
+                15px;
+
+        }
+
+
+        .modal-content ul {
+
+            display: flex;
+
+            flex-direction:
+                column;
+
+            gap: 12px;
+
+            margin-bottom:
+                30px;
+
+        }
+
+
+        .modal-content li {
+
+            font-size: 13px;
+
+            color: #555;
+
+            list-style: none;
+
+        }
+
+
+        .modal-content li::before {
+
+            content: "— ";
+
+            color: var(--blue);
+
+        }
+
+
+        .modal-curriculum {
+
+            border-top:
+                1px solid var(--border);
+
+        }
+
+
+        .curriculum-item {
+
+            padding:
+                15px 0;
+
+            border-bottom:
+                1px solid var(--border);
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            font-size: 12px;
+
+        }
+
+
+        .modal-price {
+
+            margin-top:
+                30px;
+
+            display: flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap: 20px;
+
+        }
+
+
+        .modal-price strong {
+
+            font-size:
+                30px;
+
+            letter-spacing:
+                -1px;
+
+        }
+
+
+        /* =====================================================
+           REGISTRATION MODAL
+        ===================================================== */
+
+        .registration-modal {
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(0, 0, 0, 0.55);
+
+            display: none;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            padding: 20px;
+
+            z-index: 3000;
+
+        }
+
+
+        .registration-modal.active {
+
+            display: flex;
+
+        }
+
+
+        .registration-box {
+
+            width: 100%;
+
+            max-width: 520px;
+
+            background:
+                #fafafa;
+
+            padding: 45px;
+
+            position: relative;
+
+            box-shadow:
+                0 25px 80px
+                rgba(0, 0, 0, 0.2);
+
+        }
+
+
+        .registration-close {
+
+            position: absolute;
+
+            top: 18px;
+
+            right: 22px;
+
+            border: none;
+
+            background: none;
+
+            font-size: 28px;
+
+            color: #777;
+
+            cursor: pointer;
+
+        }
+
+
+        .registration-box h2 {
+
+            font-size: 42px;
+
+            line-height: 1.1;
+
+            letter-spacing:
+                -2px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .registration-description {
+
+            font-size: 13px;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .form-group {
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .form-group input {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border:
+                1px solid #ddd;
+
+            background: white;
+
+            border-radius: 4px;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            outline: none;
+
+        }
+
+
+        .form-group input:focus {
+
+            border-color: #999;
+
+        }
+
+
+        .form-group input[readonly] {
+
+            background: #f2f2f2;
+
+            color: #666;
+
+        }
+
+
+        .registration-submit {
+
+            width: 100%;
+
+            margin-top: 10px;
+
+        }
+
+
+        .registration-message {
+
+            text-align: center;
+
+            font-size: 12px;
+
+            margin-top: 18px;
+
+        }
+
+
+        .registration-message.success {
+
+            color: #16803c;
+
+        }
+
+
+        .registration-message.error {
+
+            color: #c62828;
+
+        }
+
+
+        /* =====================================================
+           SCROLL ANIMATION
+        ===================================================== */
+
+        .reveal {
+
+            opacity: 0;
+
+            transform:
+                translateY(25px);
+
+            transition:
+                opacity 0.7s ease,
+                transform 0.7s ease;
+
+        }
+
+
+        .reveal.visible {
+
+            opacity: 1;
+
+            transform:
+                translateY(0);
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 950px) {
+
+            .hero-grid,
+            .about-grid,
+            .contact-grid {
+
+                grid-template-columns: 1fr;
+
+                gap: 60px;
+
+            }
+
+
+            .hero {
+
+                padding:
+                    100px 0;
+
+            }
+
+
+            .hero-visual {
+
+                justify-content:
+                    flex-start;
+
+            }
+
+
+            .stats-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+
+            .stat:nth-child(2) {
+
+                border-right: none;
+
+            }
+
+
+            .courses-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .process-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+
+            .process-item:nth-child(2) {
+
+                border-right: none;
+
+            }
+
+
+            .process-item {
+
+                padding-bottom:
+                    40px;
+
+            }
+
+
+            .footer-main {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .container {
+
+                width:
+                    calc(100% - 30px);
+
+            }
+
+
+            .nav-links,
+            .nav-button {
+
+                display: none;
+
+            }
+
+
+            .menu-button {
+
+                display: block;
+
+            }
+
+
+            .nav-links.mobile-open {
+
+                display: flex;
+
+                position: absolute;
+
+                top: 76px;
+
+                left: 0;
+
+                width: 100%;
+
+                padding:
+                    25px 20px;
+
+                background:
+                    #fafafa;
+
+                border-bottom:
+                    1px solid var(--border);
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    flex-start;
+
+                gap: 18px;
+
+            }
+
+
+            .hero {
+
+                padding:
+                    90px 0;
+
+            }
+
+
+            .hero h1 {
+
+                font-size:
+                    48px;
+
+                letter-spacing:
+                    -1.5px;
+
+            }
+
+
+            .hero-content > p {
+
+                font-size:
+                    16px;
+
+            }
+
+
+            .hero-actions {
+
+                align-items:
+                    flex-start;
+
+                flex-direction:
+                    column;
+
+                gap: 20px;
+
+            }
+
+
+            .section {
+
+                padding:
+                    85px 0;
+
+            }
+
+
+            .section-top {
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    flex-start;
+
+                gap: 25px;
+
+            }
+
+
+            .section-top h2 {
+
+                font-size:
+                    42px;
+
+            }
+
+
+            .stats-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .stat,
+            .stat:first-child {
+
+                padding:
+                    30px 0;
+
+                border-right: none;
+
+                border-bottom:
+                    1px solid var(--border);
+
+            }
+
+
+            .stat:last-child {
+
+                border-bottom:
+                    none;
+
+            }
+
+
+            .course-card {
+
+                min-height:
+                    400px;
+
+            }
+
+
+            .process-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .process-item,
+            .process-item:first-child {
+
+                border-right: none;
+
+                border-bottom:
+                    1px solid var(--border);
+
+                padding:
+                    30px 0;
+
+            }
+
+
+            .process-item:last-child {
+
+                border-bottom: none;
+
+            }
+
+
+            .footer-main {
+
+                grid-template-columns:
+                    1fr;
+
+                gap: 40px;
+
+            }
+
+
+            .footer-bottom {
+
+                flex-direction:
+                    column;
+
+                gap: 8px;
+
+            }
+
+
+            .modal-content {
+
+                padding:
+                    35px 25px;
+
+            }
+
+
+            .modal-content h2 {
+
+                font-size:
+                    38px;
+
+            }
+
+
+            .modal-meta {
+
+                flex-wrap:
+                    wrap;
+
+            }
+
+
+            .modal-price {
+
+                align-items:
+                    flex-start;
+
+                flex-direction:
+                    column;
+
+            }
+
+
+            .registration-box {
+
+                padding:
+                    35px 25px;
+
+            }
+
+
+            .registration-box h2 {
+
+                font-size:
+                    36px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <header class="navbar">
+
+        <div class="container nav-container">
+
+
+            <a href="#" class="logo">
+
+                Data<span>Skills</span>
+
+            </a>
+
+
+            <nav class="nav-links" id="navLinks">
+
+                <a href="#home">
+                    მთავარი
+                </a>
+
+                <a href="#courses">
+                    კურსები
+                </a>
+
+                <a href="#contact">
+                    კონტაქტი
+                </a>
+
+            </nav>
+
+
+            <a href="#courses" class="nav-button">
+
+                დაიწყე სწავლა
+
+            </a>
+
+
+            <button
+                class="menu-button"
+                id="menuButton"
+                aria-label="მენიუს გახსნა">
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main>
+
+
+        <!-- =================================================
+             HERO
+        ================================================== -->
+
+        <section class="hero" id="home">
+
+            <div class="container hero-grid">
+
+
+                <div class="hero-content reveal">
+
+                    <div class="eyebrow">
+
+                        მონაცემთა ანალიტიკის სწავლა
+
+                    </div>
+
+
+                    <h1>
+
+                        ისწავლე მონაცემებთან მუშაობა.
+
+                        <br>
+
+                        <span>
+                            შექმენი შენი მომავალი.
+                        </span>
+
+                    </h1>
+
+
+                    <p>
+
+                        პრაქტიკული კურსები Excel-ში,
+                        Power BI-ში, SQL-სა და Python-ში.
+                        ისწავლე რეალურ მონაცემებზე მუშაობა
+                        და შექმენი პროექტები შენი კარიერისთვის.
+
+                    </p>
+
+
+                    <div class="hero-actions">
+
+                        <a
+                            href="#courses"
+                            class="button button-dark">
+
+                            კურსების ნახვა
+
+                            <span>→</span>
+
+                        </a>
+
+
+                        <a
+                            href="#about"
+                            class="text-link">
+
+                            რატომ DataSkills?
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     COURSE CAROUSEL
+                ================================================== -->
+
+                <div class="hero-visual reveal">
+
+
+                    <div class="course-carousel">
+
+
+                        <!-- =================================================
+                             EXCEL
+                        ================================================== -->
+
+                        <div class="course-slide active">
+
+                            <div class="slide-header excel-header">
+
+                                <div class="slide-icon">
+                                    X
+                                </div>
+
+                                <div>
+
+                                    <div class="slide-title">
+                                        Excel
+                                    </div>
+
+                                    <div class="slide-subtitle">
+                                        მონაცემთა ანალიზი
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="excel-content">
+
+                                <div class="excel-grid">
+
+                                    <div class="excel-cell header">
+                                        პროდუქტი
+                                    </div>
+
+                                    <div class="excel-cell header">
+                                        გაყიდვები
+                                    </div>
+
+                                    <div class="excel-cell header">
+                                        გეგმა
+                                    </div>
+
+
+                                    <div class="excel-cell">
+                                        ლეპტოპი
+                                    </div>
+
+                                    <div class="excel-cell">
+                                        12,500
+                                    </div>
+
+                                    <div class="excel-cell green-value">
+                                        125%
+                                    </div>
+
+
+                                    <div class="excel-cell">
+                                        მონიტორი
+                                    </div>
+
+                                    <div class="excel-cell">
+                                        8,400
+                                    </div>
+
+                                    <div class="excel-cell yellow-value">
+                                        93%
+                                    </div>
+
+
+                                    <div class="excel-cell">
+                                        კლავიატურა
+                                    </div>
+
+                                    <div class="excel-cell">
+                                        4,300
+                                    </div>
+
+                                    <div class="excel-cell green-value">
+                                        108%
+                                    </div>
+
+                                </div>
+
+
+                                <div class="excel-summary">
+
+                                    <div>
+
+                                        <span>
+                                            ჯამური გაყიდვები
+                                        </span>
+
+                                        <strong>
+                                            $34,100
+                                        </strong>
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <span>
+                                            შესრულება
+                                        </span>
+
+                                        <strong>
+                                            108%
+                                        </strong>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             SQL
+                        ================================================== -->
+
+                        <div class="course-slide">
+
+                            <div class="slide-header sql-header">
+
+                                <div class="slide-icon">
+                                    SQL
+                                </div>
+
+                                <div>
+
+                                    <div class="slide-title">
+                                        SQL
+                                    </div>
+
+                                    <div class="slide-subtitle">
+                                        მონაცემთა ბაზები
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="sql-content">
+
+                                <div class="sql-line">
+
+                                    <span class="sql-keyword">
+                                        SELECT
+                                    </span>
+
+                                    customer,
+
+                                    <span class="sql-keyword">
+                                        SUM
+                                    </span>
+
+                                    (sales)
+
+                                </div>
+
+
+                                <div class="sql-line">
+
+                                    <span class="sql-keyword">
+                                        FROM
+                                    </span>
+
+                                    transactions
+
+                                </div>
+
+
+                                <div class="sql-line">
+
+                                    <span class="sql-keyword">
+                                        WHERE
+                                    </span>
+
+                                    date &gt;=
+
+                                    <span class="sql-string">
+                                        '2026-01-01'
+                                    </span>
+
+                                </div>
+
+
+                                <div class="sql-line">
+
+                                    <span class="sql-keyword">
+                                        GROUP BY
+                                    </span>
+
+                                    customer
+
+                                </div>
+
+
+                                <div class="sql-result">
+
+                                    <div>
+
+                                        <span>
+                                            მომხმარებელი
+                                        </span>
+
+                                        <span>
+                                            გაყიდვები
+                                        </span>
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <span>
+                                            გიორგი
+                                        </span>
+
+                                        <span>
+                                            24,500
+                                        </span>
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <span>
+                                            ნიკა
+                                        </span>
+
+                                        <span>
+                                            18,200
+                                        </span>
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <span>
+                                            ანა
+                                        </span>
+
+                                        <span>
+                                            15,800
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             POWER BI
+                        ================================================== -->
+
+                        <div class="course-slide">
+
+                            <div class="slide-header powerbi-header">
+
+                                <div class="slide-icon">
+                                    BI
+                                </div>
+
+                                <div>
+
+                                    <div class="slide-title">
+                                        Power BI
+                                    </div>
+
+                                    <div class="slide-subtitle">
+                                        ბიზნეს ანალიტიკა
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="powerbi-content">
+
+                                <div class="metric-row">
+
+
+                                    <div class="metric">
+
+                                        <span>
+                                            შემოსავალი
+                                        </span>
+
+                                        <strong>
+                                            $124K
+                                        </strong>
+
+                                        <small>
+                                            +18.4%
+                                        </small>
+
+                                    </div>
+
+
+                                    <div class="metric">
+
+                                        <span>
+                                            გაყიდვები
+                                        </span>
+
+                                        <strong>
+                                            2,840
+                                        </strong>
+
+                                        <small>
+                                            +12.8%
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="chart">
+
+                                    <div
+                                        class="bar"
+                                        style="height:45%">
+                                    </div>
+
+                                    <div
+                                        class="bar"
+                                        style="height:65%">
+                                    </div>
+
+                                    <div
+                                        class="bar"
+                                        style="height:52%">
+                                    </div>
+
+                                    <div
+                                        class="bar"
+                                        style="height:80%">
+                                    </div>
+
+                                    <div
+                                        class="bar"
+                                        style="height:70%">
+                                    </div>
+
+                                    <div
+                                        class="bar"
+                                        style="height:92%">
+                                    </div>
+
+                                    <div
+                                        class="bar"
+                                        style="height:78%">
+                                    </div>
+
+                                </div>
+
+
+                                <div class="chart-labels">
+
+                                    <span>
+                                        იან
+                                    </span>
+
+                                    <span>
+                                        თებ
+                                    </span>
+
+                                    <span>
+                                        მარ
+                                    </span>
+
+                                    <span>
+                                        აპრ
+                                    </span>
+
+                                    <span>
+                                        მაი
+                                    </span>
+
+                                    <span>
+                                        ივნ
+                                    </span>
+
+                                    <span>
+                                        ივლ
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             PYTHON
+                        ================================================== -->
+
+                        <div class="course-slide">
+
+                            <div class="slide-header python-header">
+
+                                <div class="slide-icon">
+                                    Py
+                                </div>
+
+                                <div>
+
+                                    <div class="slide-title">
+                                        Python
+                                    </div>
+
+                                    <div class="slide-subtitle">
+                                        მონაცემები და ავტომატიზაცია
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="python-content">
+
+                                <div class="python-code">
+
+
+                                    <div>
+
+                                        <span class="py-keyword">
+                                            import
+                                        </span>
+
+                                        pandas
+
+                                        <span class="py-keyword">
+                                            as
+                                        </span>
+
+                                        pd
+
+                                    </div>
+
+
+                                    <br>
+
+
+                                    <div>
+
+                                        data =
+                                        pd.read_excel(
+
+                                    </div>
+
+
+                                    <div class="indent">
+
+                                        <span class="py-string">
+                                            "sales.xlsx"
+                                        </span>
+
+                                    </div>
+
+
+                                    <div>
+                                        )
+                                    </div>
+
+
+                                    <br>
+
+
+                                    <div>
+
+                                        result =
+                                        data.groupby(
+
+                                    </div>
+
+
+                                    <div class="indent">
+
+                                        <span class="py-string">
+                                            "category"
+                                        </span>
+
+                                    </div>
+
+
+                                    <div>
+                                        ).sum()
+                                    </div>
+
+
+                                </div>
+
+
+                                <div class="python-output">
+
+                                    <span>
+                                        ✓ მონაცემები დამუშავდა
+                                    </span>
+
+                                    <strong>
+                                        12,458 ჩანაწერი
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             CAROUSEL CONTROLS
+                        ================================================== -->
+
+                        <div class="carousel-controls">
+
+                            <button
+                                class="carousel-dot active"
+                                data-slide="0">
+                            </button>
+
+                            <button
+                                class="carousel-dot"
+                                data-slide="1">
+                            </button>
+
+                            <button
+                                class="carousel-dot"
+                                data-slide="2">
+                            </button>
+
+                            <button
+                                class="carousel-dot"
+                                data-slide="3">
+                            </button>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             STATS
+        ================================================== -->
+
+        <section class="stats">
+
+            <div class="container stats-grid">
+
+
+                <div class="stat">
+
+                    <strong>
+                        4
+                    </strong>
+
+                    <span>
+                        ძირითადი კურსი
+                    </span>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <strong>
+                        100+
+                    </strong>
+
+                    <span>
+                        პრაქტიკული გაკვეთილი
+                    </span>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <strong>
+                        20+
+                    </strong>
+
+                    <span>
+                        რეალური პროექტი
+                    </span>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <strong>
+                        100%
+                    </strong>
+
+                    <span>
+                        პრაქტიკული სწავლება
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             COURSES
+        ================================================== -->
+
+        <section
+            class="section"
+            id="courses">
+
+            <div class="container">
+
+
+                <div class="section-top reveal">
+
+                    <div>
+
+                        <div class="eyebrow">
+
+                            კურსები
+
+                        </div>
+
+                        <!--
+                        <h2>
+
+                            ისწავლე ის ინსტრუმენტები,
+
+                            <br>
+
+                            რომლებსაც პროფესიონალები იყენებენ.
+
+                        </h2>
+-->
+                    </div>
+
+
+                    <p>
+
+                        დაიწყე საფუძვლებიდან და
+                        ეტაპობრივად გადადი რეალურ
+                        პროექტებზე.
+
+                    </p>
+
+                </div>
+
+
+                <!-- =================================================
+                     FILTER
+                ================================================== -->
+
+                <div class="filter-bar">
+
+                    <button
+                        class="filter active"
+                        data-filter="all">
+
+                        ყველა
+
+                    </button>
+
+
+                    <button
+                        class="filter"
+                        data-filter="beginner">
+
+                        დამწყები
+
+                    </button>
+
+
+                    <button
+                        class="filter"
+                        data-filter="advanced">
+
+                        მოწინავე
+
+                    </button>
+
+                </div>
+
+
+                <!-- =================================================
+                     COURSE GRID
+                ================================================== -->
+
+                <div class="courses-grid">
+
+
+                    <!-- =================================================
+                         EXCEL
+                    ================================================== -->
+
+                    <article
+                        class="course-card reveal"
+                        data-level="beginner">
+
+
+                        <div class="course-top">
+
+                            <span class="course-index">
+                                01
+                            </span>
+
+                            <span class="course-level">
+                                დამწყები → მოწინავე
+                            </span>
+
+                        </div>
+
+
+                        <div class="course-icon">
+                            X
+                        </div>
+
+
+                        <h3>
+                            Excel
+                        </h3>
+
+
+                        <p>
+
+                            დაეუფლე Excel-ს
+                            მონაცემთა ანალიზისთვის,
+                            ანგარიშგებისა და
+                            ავტომატიზაციისთვის.
+
+                        </p>
+
+
+                        <div class="course-meta">
+
+                            <span>
+                                24 გაკვეთილი
+                            </span>
+
+                            <span>
+                                8 საათი
+                            </span>
+
+                        </div>
+
+
+                        <a
+                            href="#"
+                            class="course-link"
+                            data-course="excel">
+
+                            კურსის ნახვა →
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- =================================================
+                         POWER BI
+                    ================================================== -->
+
+                    <article
+                        class="course-card reveal"
+                        data-level="advanced">
+
+
+                        <div class="course-top">
+
+                            <span class="course-index">
+                                02
+                            </span>
+
+                            <span class="course-level">
+                                დამწყები → მოწინავე
+                            </span>
+
+                        </div>
+
+
+                        <div class="course-icon">
+                            ◧
+                        </div>
+
+
+                        <h3>
+                            Power BI
+                        </h3>
+
+
+                        <p>
+
+                            შექმენი პროფესიონალური
+                            Dashboard-ები, ანგარიშები
+                            და ანალიტიკური მოდელები.
+
+                        </p>
+
+
+                        <div class="course-meta">
+
+                            <span>
+                                30 გაკვეთილი
+                            </span>
+
+                            <span>
+                                12 საათი
+                            </span>
+
+                        </div>
+
+
+                        <a
+                            href="#"
+                            class="course-link"
+                            data-course="powerbi">
+
+                            კურსის ნახვა →
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- =================================================
+                         SQL
+                    ================================================== -->
+
+                    <article
+                        class="course-card reveal"
+                        data-level="advanced">
+
+
+                        <div class="course-top">
+
+                            <span class="course-index">
+                                03
+                            </span>
+
+                            <span class="course-level">
+                                დამწყები → მოწინავე
+                            </span>
+
+                        </div>
+
+
+                        <div class="course-icon">
+                            DB
+                        </div>
+
+
+                        <h3>
+                            SQL
+                        </h3>
+
+
+                        <p>
+
+                            ისწავლე მონაცემთა
+                            ბაზებთან მუშაობა და
+                            ნედლი მონაცემების
+                            სასარგებლო ინფორმაციად
+                            გარდაქმნა.
+
+                        </p>
+
+
+                        <div class="course-meta">
+
+                            <span>
+                                28 გაკვეთილი
+                            </span>
+
+                            <span>
+                                10 საათი
+                            </span>
+
+                        </div>
+
+
+                        <a
+                            href="#"
+                            class="course-link"
+                            data-course="sql">
+
+                            კურსის ნახვა →
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- =================================================
+                         PYTHON
+                    ================================================== -->
+
+                    <article
+                        class="course-card reveal"
+                        data-level="beginner">
+
+
+                        <div class="course-top">
+
+                            <span class="course-index">
+                                04
+                            </span>
+
+                            <span class="course-level">
+                                დამწყები → საშუალო
+                            </span>
+
+                        </div>
+
+
+                        <div class="course-icon">
+                            Py
+                        </div>
+
+
+                        <h3>
+                            Python
+                        </h3>
+
+
+                        <p>
+
+                            გამოიყენე Python
+                            მონაცემთა ანალიზისთვის,
+                            პროცესების ავტომატიზაციისთვის
+                            და ანალიტიკური სამუშაოებისთვის.
+
+                        </p>
+
+
+                        <div class="course-meta">
+
+                            <span>
+                                32 გაკვეთილი
+                            </span>
+
+                            <span>
+                                14 საათი
+                            </span>
+
+                        </div>
+
+
+                        <a
+                            href="#"
+                            class="course-link"
+                            data-course="python">
+
+                            კურსის ნახვა →
+
+                        </a>
+
+                    </article>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ABOUT
+        ================================================== -->
+
+
+        <!-- =================================================
+             PROCESS
+        ================================================== -->
+
+        
+
+        <!-- =================================================
+             CONTACT
+        ================================================== -->
+
+        <section
+            class="section"
+            id="contact">
+
+            <div class="container contact-grid">
+
+
+                <div class="reveal">
+
+                    <div class="eyebrow">
+
+                        კონტაქტი
+
+                    </div>
+
+
+                    <h2>
+
+                        გაქვს შეკითხვა?
+
+                        <br>
+
+                        დაგვიკავშირდი.
+
+                    </h2>
+
+                </div>
+
+
+                <form
+                    class="contact-form reveal"
+                    id="contactForm">
+
+
+                    <input
+                        type="text"
+                        placeholder="სახელი"
+                        required>
+
+
+                    <input
+                        type="email"
+                        placeholder="ელფოსტა"
+                        required>
+
+
+                    <textarea
+                        placeholder="შენი შეტყობინება"
+                        required>
+                    </textarea>
+
+
+                    <button
+                        type="submit"
+                        class="button button-dark">
+
+                        შეტყობინების გაგზავნა →
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CTA
+        ================================================== -->
+
+        <section class="cta-section">
+
+            <div class="container">
+
+                <div class="cta-content reveal">
+
+
+                    <div class="eyebrow">
+
+                        დაიწყე დღეს
+
+                    </div>
+
+
+                    <h2>
+
+                        შენი კარიერა
+
+                        <br>
+
+                        აქ იწყება.
+
+                    </h2>
+
+
+                    <p>
+
+                        აირჩიე კურსი და დაიწყე
+                        პრაქტიკული უნარების განვითარება.
+
+                    </p>
+
+
+                    <a
+                        href="#courses"
+                        class="button button-light">
+
+                        კურსების ნახვა
+
+                        <span>→</span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+
+        <div class="container footer-main">
+
+
+            <div class="footer-brand">
+
+                <a href="#" class="logo">
+
+                    Data<span>Skills</span>
+
+                </a>
+
+
+                <p>
+
+                    პრაქტიკული განათლება
+                    მონაცემთა ანალიტიკაში.
+
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    სწავლა
+                </h4>
+
+                <a href="#courses">
+                    კურსები
+                </a>
+
+                <a href="#courses">
+                    Excel
+                </a>
+
+                <a href="#courses">
+                    Power BI
+                </a>
+
+                <a href="#courses">
+                    SQL
+                </a>
+
+                <a href="#courses">
+                    Python
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    კომპანია
+                </h4>
+
+             
+
+                <a href="#">
+                    კონფიდენციალურობა
+                </a>
+
+                <a href="#">
+                    წესები და პირობები
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    კონტაქტი
+                </h4>
+
+                <a href="mailto:hello@dataskills.com">
+
+                    hello@dataskills.com
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="container footer-bottom">
+
+            <span>
+
+                ©
+                <span id="year"></span>
+                DataSkills
+
+            </span>
+
+
+            <span>
+
+                შექმნილია მათთვის,
+                ვინც მონაცემებთან მუშაობს.
+
+            </span>
+
+        </div>
+
+
+    </footer>
+
+
+    <!-- =====================================================
+         COURSE MODAL
+    ====================================================== -->
+
+    <div
+        class="modal"
+        id="courseModal">
+
+
+        <div class="modal-content">
+
+
+            <button
+                class="modal-close"
+                id="modalClose">
+
+                ×
+
+            </button>
+
+
+            <div class="eyebrow">
+
+                კურსი
+
+            </div>
+
+
+            <h2 id="modalTitle">
+                Excel
+            </h2>
+
+
+            <p
+                class="modal-description"
+                id="modalDescription">
+
+                დაეუფლე Excel-ს მონაცემთა ანალიზისთვის.
+
+            </p>
+
+
+            <div class="modal-meta">
+
+                <span id="modalLevel">
+                    დამწყები → მოწინავე
+                </span>
+
+                <span id="modalLessons">
+                    24 გაკვეთილი
+                </span>
+
+                <span id="modalDuration">
+                    8 საათი
+                </span>
+
+            </div>
+
+
+            <h3>
+                რას ისწავლი
+            </h3>
+
+
+            <ul id="modalLearning">
+            </ul>
+
+
+            <h3>
+                სასწავლო პროგრამა
+            </h3>
+
+
+            <div
+                class="modal-curriculum"
+                id="modalCurriculum">
+            </div>
+
+
+            <div class="modal-price">
+
+                <strong id="modalPrice">
+                    49₾
+                </strong>
+
+
+                <button
+                    class="button button-dark"
+                    id="enrollButton">
+
+                    კურსზე რეგისტრაცია →
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         REGISTRATION MODAL
+    ====================================================== -->
+
+    <div
+        class="registration-modal"
+        id="registrationModal">
+
+
+        <div class="registration-box">
+
+
+            <button
+                class="registration-close"
+                id="registrationClose">
+
+                ×
+
+            </button>
+
+
+            <div class="eyebrow">
+
+                კურსზე რეგისტრაცია
+
+            </div>
+
+
+            <h2>
+
+                შემოგვიერთდი
+
+            </h2>
+
+
+            <p class="registration-description">
+
+                შეავსე ინფორმაცია და ჩვენ დაგიკავშირდებით
+                დამატებითი დეტალებისთვის.
+
+            </p>
+
+
+            <form id="registrationForm">
+
+
+                <div class="form-group">
+
+                    <label for="firstName">
+
+                        სახელი
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="firstName"
+                        name="firstName"
+                        placeholder="მაგ. გიორგი"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="lastName">
+
+                        გვარი
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="lastName"
+                        name="lastName"
+                        placeholder="მაგ. გიორგაძე"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="mobile">
+
+                        მობილურის ნომერი
+
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="mobile"
+                        name="mobile"
+                        placeholder="+995 5XX XX XX XX"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+
+                        არჩეული კურსი
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="registrationCourse"
+                        readonly>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="button button-dark registration-submit"
+                    id="registrationSubmit">
+
+                    რეგისტრაცია →
+
+                </button>
+
+
+                <div
+                    class="registration-message"
+                    id="registrationMessage">
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+
+        /* =====================================================
+           COURSE DATA
+        ===================================================== */
+
+        const courses = {
+
+
+            excel: {
+
+                title:
+                    "Excel",
+
+                description:
+                    "დაეუფლე Excel-ს მონაცემთა ანალიზისთვის, ანგარიშგებისა და პროცესების ავტომატიზაციისთვის.",
+
+                level:
+                    "დამწყები → მოწინავე",
+
+                lessons:
+                    "24 გაკვეთილი",
+
+                duration:
+                    "8 საათი",
+
+                price:
+                    "49₾",
+
+                learning: [
+
+                    "Excel-ის ფორმულები და ფუნქციები",
+
+                    "Advanced Lookup ფუნქციები",
+
+                    "PivotTable და PivotChart",
+
+                    "მონაცემების გაწმენდა",
+
+                    "Power Query",
+
+                    "პროფესიონალური ანგარიშგება"
+
+                ],
+
+                curriculum: [
+
+                    "Excel-ის საფუძვლები",
+
+                    "ფორმულები და ფუნქციები",
+
+                    "მონაცემთა ანალიზი",
+
+                    "PivotTable",
+
+                    "Power Query",
+
+                    "საბოლოო პროექტი"
+
+                ]
+
+            },
+
+
+            powerbi: {
+
+                title:
+                    "Power BI",
+
+                description:
+                    "შექმენი პროფესიონალური Dashboard-ები, ანგარიშები და მონაცემთა ანალიტიკური მოდელები.",
+
+                level:
+                    "დამწყები → მოწინავე",
+
+                lessons:
+                    "30 გაკვეთილი",
+
+                duration:
+                    "12 საათი",
+
+                price:
+                    "$69",
+
+                learning: [
+
+                    "Power Query",
+
+                    "მონაცემთა მოდელირება",
+
+                    "Relationships",
+
+                    "DAX",
+
+                    "ინტერაქტიული Dashboard-ები",
+
+                    "Power BI Service"
+
+                ],
+
+                curriculum: [
+
+                    "Power BI-ის საფუძვლები",
+
+                    "Power Query",
+
+                    "მონაცემთა მოდელირება",
+
+                    "DAX",
+
+                    "Dashboard-ის დიზაინი",
+
+                    "საბოლოო პროექტი"
+
+                ]
+
+            },
+
+
+            sql: {
+
+                title:
+                    "SQL",
+
+                description:
+                    "ისწავლე მონაცემთა ბაზებთან მუშაობა და ნედლი მონაცემების სასარგებლო ინფორმაციად გარდაქმნა.",
+
+                level:
+                    "დამწყები → მოწინავე",
+
+                lessons:
+                    "28 გაკვეთილი",
+
+                duration:
+                    "10 საათი",
+
+                price:
+                    "$59",
+
+                learning: [
+
+                    "SELECT ბრძანებები",
+
+                    "ფილტრაცია და აგრეგაცია",
+
+                    "JOIN-ები",
+
+                    "Subquery და CTE",
+
+                    "Window Functions",
+
+                    "Query-ის ოპტიმიზაცია"
+
+                ],
+
+                curriculum: [
+
+                    "SQL-ის საფუძვლები",
+
+                    "ფილტრაცია და აგრეგაცია",
+
+                    "JOIN-ები",
+
+                    "Subquery",
+
+                    "CTE და Window Functions",
+
+                    "SQL პროექტი"
+
+                ]
+
+            },
+
+
+            python: {
+
+                title:
+                    "Python",
+
+                description:
+                    "გამოიყენე Python მონაცემთა ანალიზისთვის, პროცესების ავტომატიზაციისთვის და ანალიტიკური სამუშაოებისთვის.",
+
+                level:
+                    "დამწყები → საშუალო",
+
+                lessons:
+                    "32 გაკვეთილი",
+
+                duration:
+                    "14 საათი",
+
+                price:
+                    "$69",
+
+                learning: [
+
+                    "Python-ის საფუძვლები",
+
+                    "ფუნქციები და მოდულები",
+
+                    "NumPy",
+
+                    "Pandas",
+
+                    "მონაცემთა ვიზუალიზაცია",
+
+                    "მონაცემთა ანალიზის პროექტები"
+
+                ],
+
+                curriculum: [
+
+                    "Python-ის საფუძვლები",
+
+                    "ფუნქციები",
+
+                    "NumPy",
+
+                    "Pandas",
+
+                    "მონაცემთა ვიზუალიზაცია",
+
+                    "საბოლოო პროექტი"
+
+                ]
+
+            }
+
+        };
+
+
+        /* =====================================================
+           MOBILE MENU
+        ===================================================== */
+
+        const menuButton =
+            document.getElementById(
+                "menuButton"
+            );
+
+
+        const navLinks =
+            document.getElementById(
+                "navLinks"
+            );
+
+
+        menuButton.addEventListener(
+            "click",
+            () => {
+
+                navLinks.classList.toggle(
+                    "mobile-open"
+                );
+
+            }
+        );
+
+
+        document
+            .querySelectorAll(
+                ".nav-links a"
+            )
+            .forEach(link => {
+
+                link.addEventListener(
+                    "click",
+                    () => {
+
+                        navLinks.classList.remove(
+                            "mobile-open"
+                        );
+
+                    }
+                );
+
+            });
+
+
+        /* =====================================================
+           COURSE FILTER
+        ===================================================== */
+
+        const filters =
+            document.querySelectorAll(
+                ".filter"
+            );
+
+
+        const courseCards =
+            document.querySelectorAll(
+                ".course-card"
+            );
+
+
+        filters.forEach(filter => {
+
+            filter.addEventListener(
+                "click",
+                () => {
+
+
+                    filters.forEach(item => {
+
+                        item.classList.remove(
+                            "active"
+                        );
+
+                    });
+
+
+                    filter.classList.add(
+                        "active"
+                    );
+
+
+                    const selected =
+                        filter.dataset.filter;
+
+
+                    courseCards.forEach(card => {
+
+                        const level =
+                            card.dataset.level;
+
+
+                        if (
+                            selected === "all" ||
+                            selected === level
+                        ) {
+
+                            card.style.display =
+                                "flex";
+
+                        }
+
+                        else {
+
+                            card.style.display =
+                                "none";
+
+                        }
+
+                    });
+
+                }
+            );
+
+        });
+
+
+        /* =====================================================
+           COURSE MODAL
+        ===================================================== */
+
+        const modal =
+            document.getElementById(
+                "courseModal"
+            );
+
+
+        const modalClose =
+            document.getElementById(
+                "modalClose"
+            );
+
+
+        const modalTitle =
+            document.getElementById(
+                "modalTitle"
+            );
+
+
+        const modalDescription =
+            document.getElementById(
+                "modalDescription"
+            );
+
+
+        const modalLevel =
+            document.getElementById(
+                "modalLevel"
+            );
+
+
+        const modalLessons =
+            document.getElementById(
+                "modalLessons"
+            );
+
+
+        const modalDuration =
+            document.getElementById(
+                "modalDuration"
+            );
+
+
+        const modalPrice =
+            document.getElementById(
+                "modalPrice"
+            );
+
+
+        const modalLearning =
+            document.getElementById(
+                "modalLearning"
+            );
+
+
+        const modalCurriculum =
+            document.getElementById(
+                "modalCurriculum"
+            );
+
+
+        const courseLinks =
+            document.querySelectorAll(
+                ".course-link"
+            );
+
+
+        courseLinks.forEach(link => {
+
+            link.addEventListener(
+                "click",
+                event => {
+
+                    event.preventDefault();
+
+
+                    const courseName =
+                        link.dataset.course;
+
+
+                    openCourseModal(
+                        courseName
+                    );
+
+                }
+            );
+
+        });
+
+
+        function openCourseModal(
+            courseName
+        ) {
+
+            const course =
+                courses[courseName];
+
+
+            if (!course) {
+                return;
+            }
+
+
+            modalTitle.textContent =
+                course.title;
+
+
+            modalDescription.textContent =
+                course.description;
+
+
+            modalLevel.textContent =
+                course.level;
+
+
+            modalLessons.textContent =
+                course.lessons;
+
+
+            modalDuration.textContent =
+                course.duration;
+
+
+            modalPrice.textContent =
+                course.price;
+
+
+            modalLearning.innerHTML =
+                "";
+
+
+            course.learning.forEach(
+                item => {
+
+                    const li =
+                        document.createElement(
+                            "li"
+                        );
+
+                    li.textContent =
+                        item;
+
+                    modalLearning.appendChild(
+                        li
+                    );
+
+                }
+            );
+
+
+            modalCurriculum.innerHTML =
+                "";
+
+
+            course.curriculum.forEach(
+                (item, index) => {
+
+                    const div =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    div.className =
+                        "curriculum-item";
+
+
+                    div.innerHTML = `
+
+                        <span>
+                            ${String(index + 1).padStart(2, "0")}
+                        </span>
+
+                        <strong>
+                            ${item}
+                        </strong>
+
+                    `;
+
+
+                    modalCurriculum.appendChild(
+                        div
+                    );
+
+                }
+            );
+
+
+            modal.classList.add(
+                "active"
+            );
+
+
+            document.body.style.overflow =
+                "hidden";
+
+        }
+
+
+        function closeModal() {
+
+            modal.classList.remove(
+                "active"
+            );
+
+
+            document.body.style.overflow =
+                "";
+
+        }
+
+
+        modalClose.addEventListener(
+            "click",
+            closeModal
+        );
+
+
+        modal.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target === modal
+                ) {
+
+                    closeModal();
+
+                }
+
+            }
+        );
+
+
+        document.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "Escape"
+                ) {
+
+                    closeModal();
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           REGISTRATION
+        ===================================================== */
+
+        const registrationModal =
+            document.getElementById(
+                "registrationModal"
+            );
+
+
+        const registrationClose =
+            document.getElementById(
+                "registrationClose"
+            );
+
+
+        const registrationForm =
+            document.getElementById(
+                "registrationForm"
+            );
+
+
+        const registrationCourse =
+            document.getElementById(
+                "registrationCourse"
+            );
+
+
+        const registrationMessage =
+            document.getElementById(
+                "registrationMessage"
+            );
+
+
+        const registrationSubmit =
+            document.getElementById(
+                "registrationSubmit"
+            );
+
+
+        const GOOGLE_SCRIPT_URL =
+            "https://script.google.com/macros/s/AKfycbwuisJKv9Uq6dXx2B62-exMNloubr2Xjg18ujXfBFm_8RaEwjGOuLC0KjsFSzoqxZqv/exec";
+
+
+        let selectedCourse = "";
+
+
+        /* =====================================================
+           OPEN REGISTRATION
+        ===================================================== */
+
+        document
+            .getElementById("enrollButton")
+            .addEventListener(
+                "click",
+                () => {
+
+
+                    selectedCourse =
+                        document
+                            .getElementById("modalTitle")
+                            .textContent;
+
+
+                    registrationCourse.value =
+                        selectedCourse;
+
+
+                    registrationMessage.textContent =
+                        "";
+
+
+                    registrationMessage.className =
+                        "registration-message";
+
+
+                    registrationModal.classList.add(
+                        "active"
+                    );
+
+
+                    document.body.style.overflow =
+                        "hidden";
+
+                }
+            );
+
+
+        /* =====================================================
+           CLOSE REGISTRATION
+        ===================================================== */
+
+        registrationClose.addEventListener(
+            "click",
+            () => {
+
+                registrationModal.classList.remove(
+                    "active"
+                );
+
+
+                document.body.style.overflow =
+                    "";
+
+            }
+        );
+
+
+        registrationModal.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target ===
+                    registrationModal
+                ) {
+
+                    registrationModal.classList.remove(
+                        "active"
+                    );
+
+
+                    document.body.style.overflow =
+                        "";
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           REGISTRATION SUBMIT
+        ===================================================== */
+
+        registrationForm.addEventListener(
+            "submit",
+            async event => {
+
+                event.preventDefault();
+
+
+                const firstName =
+                    document
+                        .getElementById("firstName")
+                        .value
+                        .trim();
+
+
+                const lastName =
+                    document
+                        .getElementById("lastName")
+                        .value
+                        .trim();
+
+
+                const mobile =
+                    document
+                        .getElementById("mobile")
+                        .value
+                        .trim();
+
+
+                if (
+                    !firstName ||
+                    !lastName ||
+                    !mobile
+                ) {
+
+                    registrationMessage.textContent =
+                        "გთხოვთ შეავსოთ ყველა ველი.";
+
+
+                    registrationMessage.className =
+                        "registration-message error";
+
+
+                    return;
+
+                }
+
+
+                const data = {
+
+                    firstName:
+                        firstName,
+
+                    lastName:
+                        lastName,
+
+                    mobile:
+                        mobile,
+
+                    course:
+                        selectedCourse
+
+                };
+
+
+                registrationSubmit.disabled =
+                    true;
+
+
+                registrationSubmit.textContent =
+                    "იგზავნება...";
+
+
+                try {
+
+
+                    await fetch(
+                        GOOGLE_SCRIPT_URL,
+                        {
+
+                            method: "POST",
+
+                            mode: "no-cors",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "text/plain;charset=utf-8"
+
+                            },
+
+                            body:
+                                JSON.stringify(data)
+
+                        }
+                    );
+
+
+                    registrationMessage.textContent =
+                        "რეგისტრაცია წარმატებით დასრულდა! ჩვენ მალე დაგიკავშირდებით.";
+
+
+                    registrationMessage.className =
+                        "registration-message success";
+
+
+                    registrationForm.reset();
+
+
+                    registrationCourse.value =
+                        selectedCourse;
+
+
+                    registrationSubmit.textContent =
+                        "რეგისტრაცია დასრულებულია ✓";
+
+
+                }
+
+                catch (error) {
+
+                    console.error(error);
+
+
+                    registrationMessage.textContent =
+                        "დაფიქსირდა შეცდომა. გთხოვთ სცადოთ თავიდან.";
+
+
+                    registrationMessage.className =
+                        "registration-message error";
+
+
+                    registrationSubmit.textContent =
+                        "რეგისტრაცია →";
+
+                }
+
+
+                registrationSubmit.disabled =
+                    false;
+
+            }
+        );
+
+
+        /* =====================================================
+           CONTACT FORM
+        ===================================================== */
+
+        const contactForm =
+            document.getElementById(
+                "contactForm"
+            );
+
+
+        contactForm.addEventListener(
+            "submit",
+            event => {
+
+                event.preventDefault();
+
+
+                alert(
+                    "მადლობა! თქვენი შეტყობინება მიღებულია."
+                );
+
+
+                contactForm.reset();
+
+            }
+        );
+
+
+        /* =====================================================
+           CURRENT YEAR
+        ===================================================== */
+
+        document.getElementById(
+            "year"
+        ).textContent =
+            new Date().getFullYear();
+
+
+        /* =====================================================
+           SCROLL REVEAL
+        ===================================================== */
+
+        const revealElements =
+            document.querySelectorAll(
+                ".reveal"
+            );
+
+
+        const observer =
+            new IntersectionObserver(
+                entries => {
+
+                    entries.forEach(
+                        entry => {
+
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                entry.target.classList.add(
+                                    "visible"
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+                {
+                    threshold: 0.12
+                }
+            );
+
+
+        revealElements.forEach(
+            element => {
+
+                observer.observe(
+                    element
+                );
+
+            }
+        );
+
+
+        /* =====================================================
+           CAROUSEL
+        ===================================================== */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+
+                const slides =
+                    document.querySelectorAll(
+                        ".course-slide"
+                    );
+
+
+                const dots =
+                    document.querySelectorAll(
+                        ".carousel-dot"
+                    );
+
+
+                if (
+                    slides.length === 0
+                ) {
+
+                    return;
+
+                }
+
+
+                let currentSlide = 0;
+
+                let carouselTimer;
+
+
+                function showSlide(index) {
+
+
+                    slides.forEach(
+                        function (slide) {
+
+                            slide.classList.remove(
+                                "active"
+                            );
+
+                        }
+                    );
+
+
+                    dots.forEach(
+                        function (dot) {
+
+                            dot.classList.remove(
+                                "active"
+                            );
+
+                        }
+                    );
+
+
+                    slides[index].classList.add(
+                        "active"
+                    );
+
+
+                    if (dots[index]) {
+
+                        dots[index].classList.add(
+                            "active"
+                        );
+
+                    }
+
+
+                    currentSlide = index;
+
+                }
+
+
+                function nextSlide() {
+
+
+                    currentSlide++;
+
+
+                    if (
+                        currentSlide >=
+                        slides.length
+                    ) {
+
+                        currentSlide = 0;
+
+                    }
+
+
+                    showSlide(
+                        currentSlide
+                    );
+
+                }
+
+
+                function startCarousel() {
+
+
+                    clearInterval(
+                        carouselTimer
+                    );
+
+
+                    carouselTimer =
+                        setInterval(
+                            nextSlide,
+                            3000
+                        );
+
+                }
+
+
+                dots.forEach(
+                    function (
+                        dot,
+                        index
+                    ) {
+
+
+                        dot.addEventListener(
+                            "click",
+                            function () {
+
+
+                                clearInterval(
+                                    carouselTimer
+                                );
+
+
+                                showSlide(
+                                    index
+                                );
+
+
+                                startCarousel();
+
+                            }
+                        );
+
+                    }
+                );
+
+
+                showSlide(0);
+
+                startCarousel();
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>
