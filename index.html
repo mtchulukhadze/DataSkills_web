@@ -460,7 +460,7 @@
         .hero h1 {
 
             font-size:
-                clamp(34px, 6vw, 64px);
+                clamp(34px, 6vw, 30px);
 
             line-height:
                 1.08;
@@ -3974,7 +3974,7 @@
                         <div class="course-meta">
 
                             <span>
-                                24 გაკვეთილი
+                                8 გაკვეთილი
                             </span>
 
                             <span>
@@ -4035,7 +4035,7 @@
                         <div class="course-meta">
 
                             <span>
-                                30 გაკვეთილი
+                                12 გაკვეთილი
                             </span>
 
                             <span>
@@ -4098,11 +4098,11 @@
                         <div class="course-meta">
 
                             <span>
-                                28 გაკვეთილი
+                                12 გაკვეთილი
                             </span>
 
                             <span>
-                                10 საათი
+                                12 საათი
                             </span>
 
                         </div>
@@ -4160,11 +4160,11 @@
                         <div class="course-meta">
 
                             <span>
-                                32 გაკვეთილი
+                                12 გაკვეთილი
                             </span>
 
                             <span>
-                                14 საათი
+                                12 საათი
                             </span>
 
                         </div>
@@ -4452,6 +4452,34 @@
 
             </p>
 
+            <div class="modal-info">
+
+                <div class="modal-info-row">
+
+                    <span>ფორმატი</span>
+
+                    <strong id="modalFormat">ონლაინ</strong>
+
+                </div>
+
+                <div class="modal-info-row">
+
+                    <span>დაწყების თარიღი</span>
+
+                    <strong id="modalStartDate">—</strong>
+
+                </div>
+
+                <div class="modal-info-row">
+
+                    <span>განრიგი</span>
+
+                    <strong id="modalSchedule">—</strong>
+
+                </div>
+
+            </div>
+
 
             <div class="modal-meta">
 
@@ -4460,7 +4488,7 @@
                 </span>
 
                 <span id="modalLessons">
-                    24 გაკვეთილი
+                    8 გაკვეთილი
                 </span>
 
                 <span id="modalDuration">
@@ -4576,7 +4604,7 @@
 
                     </label>
 
-                    <input type="tel" id="mobile" name="mobile" placeholder="+995 5XX XX XX XX" required>
+                    <input type="tel" id="mobile" name="mobile" placeholder="5XX XX XX XX" required>
 
                 </div>
 
@@ -4616,6 +4644,7 @@
          JAVASCRIPT
     ====================================================== -->
 
+  
     <script>
 
 
@@ -4642,6 +4671,15 @@
 
                 duration:
                     "8 საათი",
+
+                format:
+                    "ონლაინ",
+
+                startDate:
+                    "25 სექტემბერი, 2026",
+
+                schedule:
+                    "პარასკევი, კვირა — 20:00 - 21:00",
 
                 price:
                     "49₾",
@@ -4677,13 +4715,22 @@
                     "დამწყები → მოწინავე",
 
                 lessons:
-                    "30 გაკვეთილი",
+                    "12 გაკვეთილი",
 
                 duration:
                     "12 საათი",
 
+                format:
+                    "ონლაინ",
+
+                startDate:
+                    "25 სექტემბერი, 2026",
+
+                schedule:
+                    "ორშაბათი, ოთხშაბათი — 20:00 - 21:00",
+
                 price:
-                    "$69",
+                    "49₾",
 
                 learning: [
 
@@ -4716,13 +4763,22 @@
                     "დამწყები → მოწინავე",
 
                 lessons:
-                    "28 გაკვეთილი",
+                    "12 გაკვეთილი",
 
                 duration:
-                    "10 საათი",
+                    "12 საათი",
+
+                format:
+                    "ონლაინ",
+
+                startDate:
+                    "25 სექტემბერი, 2026",
+
+                schedule:
+                    "სამშაბათი, ხუთშაბათი — 20:00 - 21:00",
 
                 price:
-                    "$59",
+                    "49₾",
 
                 learning: [
 
@@ -4755,13 +4811,22 @@
                     "დამწყები → საშუალო",
 
                 lessons:
-                    "32 გაკვეთილი",
+                    "12 გაკვეთილი",
 
                 duration:
-                    "14 საათი",
+                    "12 საათი",
+
+                format:
+                    "ონლაინ",
+
+                startDate:
+                    "25 სექტემბერი, 2026",
+
+                schedule:
+                    "შაბათი, სამშაბათი — 20:00 - 21:00",
 
                 price:
-                    "$69",
+                    "49₾",
 
                 learning: [
 
@@ -4988,6 +5053,24 @@
             );
 
 
+        const modalFormat =
+            document.getElementById(
+                "modalFormat"
+            );
+
+
+        const modalStartDate =
+            document.getElementById(
+                "modalStartDate"
+            );
+
+
+        const modalSchedule =
+            document.getElementById(
+                "modalSchedule"
+            );
+
+
         const modalLevel =
             document.getElementById(
                 "modalLevel"
@@ -5066,6 +5149,18 @@
 
             modalDescription.textContent =
                 course.description;
+
+
+            modalFormat.textContent =
+                course.format;
+
+
+            modalStartDate.textContent =
+                course.startDate;
+
+
+            modalSchedule.textContent =
+                course.schedule;
 
 
             modalLevel.textContent =
@@ -5692,7 +5787,6 @@
         );
 
     </script>
-
 
 </body>
 
